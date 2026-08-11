@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "updated_at": "2026-08-11",
+  "announcements": {
+    "zh": {
+      "path": "announcements/zh.md",
+      "sha256": "0c797704e94d53b7aad61be82771e95e5fb17b403a6beca6717b02e2aba2987e"
+    },
+    "en": {
+      "path": "announcements/en.md",
+      "sha256": "13fab1691ccaa7769fc941941e4a0205568d3e5a8fe8db6c8b59b02ea9486052"
+    }
+  },
+  "documents": {
+    "terms": {
+      "version": "1.0",
+      "updated_at": "2026-08-11",
+      "requires_confirmation": true,
+      "languages": {
+        "zh": {
+          "path": "legal/terms/1.0/zh.md",
+          "sha256": "8b05d511c94779921ef7233d89abaf1ca052793a3cc15d85a8062d9885c67652"
+        },
+        "en": {
+          "path": "legal/terms/1.0/en.md",
+          "sha256": "fc42694592e8cc5971f3bd4582b89009557d1f0c8ebe825c229335368d234ee2"
+        }
+      }
+    },
+    "privacy": {
+      "version": "1.0",
+      "updated_at": "2026-08-11",
+      "requires_confirmation": true,
+      "languages": {
+        "zh": {
+          "path": "legal/privacy/1.0/zh.md",
+          "sha256": "b057e8b52b1bda924e76aa6fadad21bece613172efe6e4240c1c5ad9727cc303"
+        },
+        "en": {
+          "path": "legal/privacy/1.0/en.md",
+          "sha256": "edf9d09b4951a911215d54ac27cbf22100f7b98bb4189ad339618cb7a7fa59d0"
+        }
+      }
+    }
+  }
+}
