@@ -1,7 +1,7 @@
 # DiceFrame Privacy Policy
 
-Last updated: August 11, 2026<br>
-Effective date: August 11, 2026<br>
+Last updated: August 11, 2026  
+Effective date: August 11, 2026  
 Version: 1.0
 
 This Policy explains data handling by the local DiceFrame application, the public plugin index, and DiceFrame Hub. DiceFrame is self-hosted software, so actual processing depends on the deployer’s providers, plugins, network exposure, and sharing choices.

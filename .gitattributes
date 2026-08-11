@@ -1,0 +1,2 @@
+# Markdown hard line breaks in the legal document headers are intentional.
+content/legal/**/*.md whitespace=-trailing-space

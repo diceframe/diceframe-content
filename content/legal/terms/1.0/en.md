@@ -1,7 +1,7 @@
 # DiceFrame Terms of Use
 
-Last updated: August 11, 2026<br>
-Effective date: August 11, 2026<br>
+Last updated: August 11, 2026  
+Effective date: August 11, 2026  
 Version: 1.0
 
 Please read these Terms and the DiceFrame Privacy Policy before downloading, installing, deploying, or using DiceFrame.

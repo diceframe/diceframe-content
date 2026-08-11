@@ -19,11 +19,11 @@
       "languages": {
         "zh": {
           "path": "legal/terms/1.0/zh.md",
-          "sha256": "8b05d511c94779921ef7233d89abaf1ca052793a3cc15d85a8062d9885c67652"
+          "sha256": "511a0b1805bef4b6d732722678e072b38a95792d812084159dbb2db9dea409d1"
         },
         "en": {
           "path": "legal/terms/1.0/en.md",
-          "sha256": "fc42694592e8cc5971f3bd4582b89009557d1f0c8ebe825c229335368d234ee2"
+          "sha256": "8fe82e04e59f27c69c9357cfc3e7141730bb7ffbf79fe95f9b3969d09492f717"
         }
       }
     },
@@ -34,11 +34,11 @@
       "languages": {
         "zh": {
           "path": "legal/privacy/1.0/zh.md",
-          "sha256": "b057e8b52b1bda924e76aa6fadad21bece613172efe6e4240c1c5ad9727cc303"
+          "sha256": "81e939bb07b0b78ac8498aa2ed78278c0b9f9127d5c477b4036b3d6539f9f69d"
         },
         "en": {
           "path": "legal/privacy/1.0/en.md",
-          "sha256": "edf9d09b4951a911215d54ac27cbf22100f7b98bb4189ad339618cb7a7fa59d0"
+          "sha256": "f7d40c1bc88af7d9d3ead383110affd40a943b3fe13937e7fee0e4e7938b1c5a"
         }
       }
     }
