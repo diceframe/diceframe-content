@@ -115,7 +115,7 @@ The store prefers DiceFrame Hub for catalog metadata, review state, aggregate st
 - `official`, `verified`, and `community` describe source/review level, not absolute safety. Install process plugins only from trusted authors.
 - A disabled Install button is accompanied by a reason. Bundled plugins update with DiceFrame; entries without a public repository or stable Release cannot be installed.
 - After installation, review permissions, enter the plugin's own settings, and enable it. QQ/NapCat still needs no manually entered DiceFrame Bot Token.
-- Declarative plugins may update automatically when their runtime type and effective permissions do not expand. Process plugins only notify and require confirmation; permission or runtime expansion also requires confirmation.
+- The store checks for plugin updates and notifies users; installing or updating requires manual confirmation. Process plugins only notify and require confirmation; permission or runtime expansion also requires confirmation.
 - Privately shared plugins should use a `.dfplugin` file produced by the packaging script. Select it under Local Install. After manually copying a plugin directory, use Rescan Local Plugins.
 - Chat presentation extensions may add commands or replace status, map, and other replies with custom text, images, or cards. If an extension fails, DiceFrame keeps using its built-in presentation; the extension cannot rewrite authoritative character state, rolls, or payment results.
 
@@ -183,7 +183,7 @@ Check for a new version under Settings → Version Update. The apply method depe
 - Git development checkouts should use `git pull`.
 - Docker uses `docker compose pull && docker compose up -d`. NAS users can also pull and recreate the image from the device's container manager.
 
-The first move from v1.6.0 to a release with the new launcher requires one manual upgrade following that release's notes. See [Application Updates](updates.md) for details.
+The first move from v1.6.0 to a release with the new launcher requires one manual upgrade following that release's notes. See [Application Updates](https://github.com/diceframe/diceframe/blob/main/docs/en/updates.md) for details.
 
 ## Troubleshooting
 

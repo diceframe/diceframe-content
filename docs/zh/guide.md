@@ -118,7 +118,7 @@ Cloudflare Tunnel 可在免费套餐中使用，通过主动建立的隧道把�
 
 Tailscale Funnel 不要求用户购买域名或拥有公网 IP，会提供 `*.ts.net` 公网 HTTPS 地址，并通过加密隧道访问本机服务。玩家不需要安装 Tailscale。Funnel 当前仍为 beta，存在带宽和端口限制；在中国大陆，不同运营商对 Tailscale 控制面、`*.ts.net` 和境外中继的可达性可能不同，不能保证所有玩家都能打开。配置方式与限制见 [Tailscale Funnel 官方文档](https://tailscale.com/kb/1223/funnel)。
 
-当前可以先用 Tailscale CLI 把本地 DiceFrame 端口作为 HTTPS Funnel 公开，分享前建议用手机流量测试一次。DiceFrame 后续即使提供一键 Funnel 插件，也不会覆盖你已经填写的 SakuraFrp 或其他外部 HTTPS 地址。完整选型见 [安全公网联机方案](remote-access.md)。
+当前可以先用 Tailscale CLI 把本地 DiceFrame 端口作为 HTTPS Funnel 公开，分享前建议用手机流量测试一次。DiceFrame 后续即使提供一键 Funnel 插件，也不会覆盖你已经填写的 SakuraFrp 或其他外部 HTTPS 地址。完整选型见 [安全公网联机方案](https://github.com/diceframe/diceframe/blob/main/docs/zh/remote-access.md)。
 
 ### 有公网 IP、没有域名
 
@@ -200,7 +200,7 @@ Bot 会跟随当前对局的语言显示帮助、状态、前情、地图、支�
 - `official`、`verified`、`community` 是来源等级，不是安全保证。尤其是需要启动进程的插件，只安装你信任的作者发布的版本。
 - 安装按钮变灰时，查看条目下方的原因。内置插件随 DiceFrame 更新，不从商店单独安装；缺少公开仓库或正式 Release 的条目也不能安装。
 - 安装后仍需在“已安装插件”中查看权限、填写插件自身配置并启用。QQ / NapCat 的 DiceFrame Bot Token 仍由宿主自动注入，不需要手填。
-- 声明式插件在类型和有效权限不增加时可自动更新；进程型插件只提示更新并要求确认；新增权限或变为进程型时也必须确认。
+- 商店会检测插件新版本并提示，安装或更新都需要用户手动确认；进程型插件只提示更新并要求确认；新增权限或变为进程型时也必须确认。
 - 私下分享的插件应使用作者通过打包脚本生成的 `.dfplugin` 文件，在“本地安装”中选择。手动复制插件目录后可点击“重新扫描本地插件”。
 - 聊天展示扩展可以增加群聊命令，或把状态、地图等回复换成新的文字、图片和卡片。扩展临时出错时会继续使用 DiceFrame 自带的展示，不会因此改坏角色状态、骰点或支付结果。
 
@@ -272,7 +272,7 @@ Bot 会尽量私聊发送；如果私聊失败，会提示检查临时会话或�
 - Git 开发目录请使用 `git pull`。
 - Docker 使用 `docker compose pull && docker compose up -d`；NAS 也可以在设备自带的容器管理界面检查并拉取新镜像。
 
-从 v1.6.0 第一次升级到带新启动器的版本时，需要按该版本的发布说明手动升级一次。详细说明见 [应用更新说明](updates.md)。
+从 v1.6.0 第一次升级到带新启动器的版本时，需要按该版本的发布说明手动升级一次。详细说明见 [应用更新说明](https://github.com/diceframe/diceframe/blob/main/docs/zh/updates.md)。
 
 ## 常见问题
 
