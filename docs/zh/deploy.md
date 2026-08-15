@@ -22,6 +22,16 @@ docker compose pull
 docker compose up -d
 ```
 
+需要启用长期记忆的语义召回（向量记忆）时，在 `.env` 中追加：
+
+```env
+# 可选：向量记忆（详见用户手册「长期记忆（向量记忆）配置」）
+TRPG_EMBEDDING_MODEL=nomic-embed-text
+TRPG_EMBEDDING_API_KEY=
+```
+
+本地 Ollama 方案把 `embedding_base_url` 指向宿主机（Linux Docker 里不能用 `127.0.0.1`）：先在 `data/config.json` 中设置 `embedding_enabled: true` 与 `embedding_base_url: http://host.docker.internal:11434`（或宿主机局域网 IP），再按上面的环境变量填模型名；API Key 留空。在线服务则填写对应服务的密钥与 OpenAI 兼容地址。
+
 启动后打开：
 
 ```text

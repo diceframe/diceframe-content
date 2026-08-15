@@ -22,6 +22,47 @@ http://localhost:18000
 
 如果还没填好模型配置就进入“创建”，页面顶部会提醒你，并提供前往设置页的按钮。你仍然可以先填写世界和角色；真正生成内容或开始冒险前，再完成设置即可。
 
+### 长期记忆（向量记忆）配置（可选）
+
+DiceFrame 会把已确认的剧情要点沉淀为长期记忆，并在后续生成时按语义召回。默认仅做关键词匹配；配置向量记忆后改为语义召回，长团或信息量大的剧本命中更准。向量记忆**不是必填项**，不配置也能正常跑团。
+
+配置项在 `data/config.json`（或 `.env` 环境变量）：
+
+| 配置项 | 说明 | 默认值 |
+|--------|------|--------|
+| `embedding_enabled` | 是否启用向量记忆 | `false` |
+| `embedding_base_url` | Embedding 服务地址（OpenAI 兼容 `/v1` 或 Ollama 地址均可） | 空 |
+| `embedding_model` | 向量模型名 | `nomic-embed-text` |
+| `embedding_api_key` | 服务商密钥；本地服务可留空 | 空 |
+
+环境变量写法：`TRPG_EMBEDDING_MODEL`、`TRPG_EMBEDDING_API_KEY`（`embedding_enabled` 与 `embedding_base_url` 在 `data/config.json` 中设置）。密钥建议写入 `data/secrets.json` 的 `embedding_api_key`，避免出现在明文配置里。
+
+**推荐一：本地部署（最省心，默认模型即为此方案）**
+
+用 [Ollama](https://ollama.com) 跑向量模型，数据不出本机，无需申请任何服务商密钥：
+
+```powershell
+ollama pull nomic-embed-text
+```
+
+然后在 DiceFrame 配置：
+
+```json
+{ "embedding_enabled": true, "embedding_base_url": "http://127.0.0.1:11434", "embedding_model": "nomic-embed-text" }
+```
+
+Ollama 默认监听 `11434` 端口，DiceFrame 会自动走其原生接口；API Key 留空。想用中文效果更好的模型也可以换 `bge-m3`（`ollama pull bge-m3`，上下文更长）。
+
+**推荐二：在线服务（备选）**
+
+需要联网且有服务商密钥时，可以使用支持 OpenAI 兼容接口的在线 Embedding 服务，例如硅基流动（SiliconFlow）。以下仅为配置示例，DiceFrame 未与该服务商存在任何合作或赞助关系：
+
+```json
+{ "embedding_enabled": true, "embedding_base_url": "https://api.siliconflow.cn/v1", "embedding_model": "BAAI/bge-m3", "embedding_api_key": "你的密钥" }
+```
+
+配置并保存后，可以在设置页测试连接；调用失败会在日志中提示，长期记忆会自动降级为关键词匹配，不影响正常游玩。
+
 ## 语音朗读怎么用（可选）
 
 语音不是开团的必填项。第一次使用建议先选“浏览器 / 系统音色”：进入“设置 → 高级参数 → 语音朗读”，保持默认语音引擎，按需打开“新 GM 叙事自动朗读”，保存即可。它不需要下载模型，但实际音色由当前手机或电脑的浏览器决定。
