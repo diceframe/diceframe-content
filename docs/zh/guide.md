@@ -26,16 +26,14 @@ http://localhost:18000
 
 DiceFrame 会把已确认的剧情要点沉淀为长期记忆，并在后续生成时按语义召回。默认仅做关键词匹配；配置向量记忆后改为语义召回，长团或信息量大的剧本命中更准。向量记忆**不是必填项**，不配置也能正常跑团。
 
-配置项在 `data/config.json`（或 `.env` 环境变量）：
+直接在 WebUI 里配置，无需编辑任何配置文件：打开 **设置 → 向量记忆**，打开「向量记忆」开关，填写以下字段，点「测试向量连接」确认通了之后保存即可：
 
-| 配置项 | 说明 | 默认值 |
-|--------|------|--------|
-| `embedding_enabled` | 是否启用向量记忆 | `false` |
-| `embedding_base_url` | Embedding 服务地址（OpenAI 兼容 `/v1` 或 Ollama 地址均可） | 空 |
-| `embedding_model` | 向量模型名 | `nomic-embed-text` |
-| `embedding_api_key` | 服务商密钥；本地服务可留空 | 空 |
-
-环境变量写法：`TRPG_EMBEDDING_MODEL`、`TRPG_EMBEDDING_API_KEY`（`embedding_enabled` 与 `embedding_base_url` 在 `data/config.json` 中设置）。密钥建议写入 `data/secrets.json` 的 `embedding_api_key`，避免出现在明文配置里。
+| 字段 | 说明 |
+|------|------|
+| 向量接口 | Embedding 服务地址（OpenAI 兼容 `/v1` 或 Ollama 地址均可） |
+| API Key | 服务商密钥；本地服务可留空 |
+| 模型 | 向量模型名 |
+| 最大输入 | 填 0 自动推断，或按模型填写 |
 
 **推荐一：本地部署（最省心，默认模型即为此方案）**
 
@@ -45,23 +43,13 @@ DiceFrame 会把已确认的剧情要点沉淀为长期记忆，并在后续生�
 ollama pull nomic-embed-text
 ```
 
-然后在 DiceFrame 配置：
-
-```json
-{ "embedding_enabled": true, "embedding_base_url": "http://127.0.0.1:11434", "embedding_model": "nomic-embed-text" }
-```
-
-Ollama 默认监听 `11434` 端口，DiceFrame 会自动走其原生接口；API Key 留空。想用中文效果更好的模型也可以换 `bge-m3`（`ollama pull bge-m3`，上下文更长）。
+然后在设置页填写：向量接口填 `http://127.0.0.1:11434`，模型填 `nomic-embed-text`，API Key 留空。Ollama 默认监听 `11434` 端口，DiceFrame 会自动走其原生接口；想用中文效果更好的模型也可以换 `bge-m3`（`ollama pull bge-m3`，上下文更长）。用 Docker 部署 DiceFrame 时，向量接口填 `http://host.docker.internal:11434`（或宿主机局域网 IP），因为容器内的 `127.0.0.1` 指容器自身。
 
 **推荐二：在线服务（备选）**
 
-需要联网且有服务商密钥时，可以使用支持 OpenAI 兼容接口的在线 Embedding 服务，例如硅基流动（SiliconFlow）。以下仅为配置示例，DiceFrame 未与该服务商存在任何合作或赞助关系：
+需要联网且有服务商密钥时，可以使用支持 OpenAI 兼容接口的在线 Embedding 服务，例如硅基流动（SiliconFlow）。以下仅为配置示例，DiceFrame 未与该服务商存在任何合作或赞助关系：向量接口填 `https://api.siliconflow.cn/v1`，模型填 `BAAI/bge-m3`，API Key 填对应平台的密钥。
 
-```json
-{ "embedding_enabled": true, "embedding_base_url": "https://api.siliconflow.cn/v1", "embedding_model": "BAAI/bge-m3", "embedding_api_key": "你的密钥" }
-```
-
-配置并保存后，可以在设置页测试连接；调用失败会在日志中提示，长期记忆会自动降级为关键词匹配，不影响正常游玩。
+调用失败会在日志中提示，长期记忆会自动降级为关键词匹配，不影响正常游玩。
 
 ## 语音朗读怎么用（可选）
 
