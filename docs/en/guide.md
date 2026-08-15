@@ -26,16 +26,14 @@ If you open Create before finishing the model settings, a notice at the top link
 
 DiceFrame stores confirmed plot points as long-term memory and recalls them when generating new content. By default it uses keyword matching; enabling vector memory switches to semantic recall, which helps for long campaigns or information-heavy plots. Vector memory is **not required** — the game works fine without it.
 
-Configure via `data/config.json` (or environment variables):
+Configure it directly in the WebUI — no config files to edit. Open **Settings → Vector memory**, toggle it on, fill in the fields below, click **Test vector connection**, and save once it passes:
 
-| Setting | Description | Default |
-|---------|-------------|---------|
-| `embedding_enabled` | Enables vector memory | `false` |
-| `embedding_base_url` | Embedding service URL (OpenAI-compatible `/v1` or Ollama) | empty |
-| `embedding_model` | Embedding model name | `nomic-embed-text` |
-| `embedding_api_key` | Service key; leave empty for local services | empty |
-
-Environment variables: `TRPG_EMBEDDING_MODEL`, `TRPG_EMBEDDING_API_KEY` (`embedding_enabled` and `embedding_base_url` live in `data/config.json`). Secrets should go into the `embedding_api_key` field of `data/secrets.json` rather than plain config.
+| Field | Description |
+|-------|-------------|
+| Vector endpoint | Embedding service URL (OpenAI-compatible `/v1` or Ollama) |
+| API Key | Service key; leave empty for local services |
+| Model | Embedding model name |
+| Max input | `0` for automatic detection, or set per model |
 
 **Option 1: local deployment (recommended, also the default model)**
 
@@ -45,23 +43,13 @@ Run an embedding model locally with [Ollama](https://ollama.com). Nothing leaves
 ollama pull nomic-embed-text
 ```
 
-Then configure DiceFrame:
-
-```json
-{ "embedding_enabled": true, "embedding_base_url": "http://127.0.0.1:11434", "embedding_model": "nomic-embed-text" }
-```
-
-Ollama listens on port `11434` by default and DiceFrame uses its native endpoint; leave the API key empty. For better Chinese support you can also use `bge-m3` (`ollama pull bge-m3`, longer context).
+Then in Settings fill in: endpoint `http://127.0.0.1:11434`, model `nomic-embed-text`, API key empty. Ollama listens on port `11434` by default and DiceFrame uses its native endpoint; for better Chinese support you can also use `bge-m3` (`ollama pull bge-m3`, longer context). When DiceFrame runs in Docker, use `http://host.docker.internal:11434` (or the host LAN IP), because `127.0.0.1` inside the container refers to the container itself.
 
 **Option 2: online service (alternative)**
 
-With network access and a service key, any OpenAI-compatible online embedding service works, for example SiliconFlow. This is only a configuration example — DiceFrame has no partnership with or sponsorship from that provider:
+With network access and a service key, any OpenAI-compatible online embedding service works, for example SiliconFlow. This is only a configuration example — DiceFrame has no partnership with or sponsorship from that provider: endpoint `https://api.siliconflow.cn/v1`, model `BAAI/bge-m3`, API key from that platform.
 
-```json
-{ "embedding_enabled": true, "embedding_base_url": "https://api.siliconflow.cn/v1", "embedding_model": "BAAI/bge-m3", "embedding_api_key": "your key" }
-```
-
-After saving you can test the connection in Settings; failures are logged and long-term memory falls back to keyword matching, so normal play is unaffected.
+Failures are logged and long-term memory falls back to keyword matching, so normal play is unaffected.
 
 ## Optional text-to-speech
 

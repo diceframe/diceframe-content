@@ -22,15 +22,13 @@ docker compose pull
 docker compose up -d
 ```
 
-To enable semantic recall for long-term memory (vector memory), append to `.env`:
+To enable semantic recall for long-term memory (vector memory), configure it directly in the **WebUI Settings → Vector memory** (toggle, endpoint, API key, model, max input; click **Test vector connection** after filling). No config files to edit. In Docker deployments, point the endpoint at `http://host.docker.internal:11434` (or the host LAN IP), because `127.0.0.1` inside the container refers to the container itself; leave the API key empty for a local Ollama setup. The equivalent `.env` configuration is:
 
 ```env
-# Optional: vector memory (see "Long-term memory (vector memory) configuration" in the user guide)
+# Optional: vector memory (see "Long-term memory (vector memory) configuration" in the user guide; the WebUI settings page takes precedence)
 TRPG_EMBEDDING_MODEL=nomic-embed-text
 TRPG_EMBEDDING_API_KEY=
 ```
-
-For a local Ollama setup, point `embedding_base_url` at the host (inside Linux Docker `127.0.0.1` means the container itself): set `embedding_enabled: true` and `embedding_base_url: http://host.docker.internal:11434` (or the host LAN IP) in `data/config.json`, add the model via the environment variables above, and leave the API key empty. For an online service, fill in its key and OpenAI-compatible URL.
 
 Open `http://localhost:9876`. To change the host port:
 
