@@ -344,6 +344,46 @@ The normal path no longer triggers a check from keywords in a player's message. 
 
 **Multi-language extension**: vocabularies are data-driven. Adding a language only requires adding keys (such as `ja`) to `aliases` / `skill_candidates` and registering the language suffix in `engine/language.py`. New languages do not pollute other languages.
 
+#### 7.2.2 Special-stat initial values and the skill bonus table
+
+Two numeric fields in a rule template fail silently when omitted. Check both before publishing:
+
+**`special_stats[].initial`**
+
+Every `special_stats` entry should declare `initial` explicitly. Without it, the engine initializes the stat to its maximum (`max`):
+
+- Resource pools (mana, qi, stamina) legitimately start full - write `"initial": <max>` to pin that intent.
+- Progress bars (KPI, mystery progress, danger meters, countdown starts) **must** declare `initial`. If omitted, the character starts with the progress already full - endings meant to trigger at 100 (promotion, collapse, truth reveal) should fire on round one, and GMs typically won't, leaving the game running from a corrupted initial state.
+
+```json
+"special_stats": [
+  {"key": "mana", "name": "Mana", "max": 100, "initial": 100, "description": "Spent on spells, restored by meditation"},
+  {"key": "kpi",  "name": "KPI",  "max": 100, "initial": 42,  "description": "Work progress; reaching 100 triggers the ending"}
+]
+```
+
+`sanity` and `luck` receive dedicated CoC-style initialization from the engine and may omit `initial`.
+
+**`skill_value_to_bonus`**
+
+In d20 rules, skill values only affect checks (`d20 + attribute modifier + skill bonus vs DC`) through this table. Without it the skill bonus is always zero: skill values never change any check result and only inform narration. If skills are a numeric mechanism in your rule, provide the table explicitly or `"extends": "base_d20"` to inherit the built-in default:
+
+```json
+"skill_value_to_bonus": {"20": 1, "40": 2, "60": 3, "80": 4}
+```
+
+- d100 rules (CoC-style): the skill value itself is the success chance; this table is not used.
+- `dice_system: "none"` narrative-only rules have no checks and do not need it.
+- Keeping skills purely narrative is a valid design; in that case omit the table on purpose.
+
+**Self-check**: the DiceFrame main repository ships an audit script. Run it over your rule files before publishing:
+
+```bash
+python scripts/audit_rules.py --strict
+```
+
+Missing `initial` or a missing skill bonus table surface as warnings (advisory by default, failures under `--strict`).
+
 ### 7.3 Themes
 
 Themes register JSON through `contributes.theme` or `contributes.themes`. Only theme contract v2 is supported; themes without `"schema_version": 2` are ignored and legacy variables are not mapped.
