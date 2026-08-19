@@ -15,6 +15,8 @@ The container stores runtime data in `/app/data`; Compose maps it to `./data` in
 
 Using the published image:
 
+> Prefer configuring the model API directly in **WebUI Settings -> Model API** (see the user guide); the `.env` approach below is for pre-seeding before first launch or automated deployments.
+
 ```bash
 cp .env.example .env
 # Edit .env and set TRPG_LLM_API_KEY. Override base URL/model only when needed.

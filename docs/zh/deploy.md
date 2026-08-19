@@ -15,6 +15,8 @@ Docker 里固定把运行数据放在 `/app/data`，compose 会映射到项目�
 
 使用发布镜像：
 
+> 模型 API 优先在 **WebUI 设置 -> 模型接口** 里直接填写（见用户手册「模型 API 配置」）；下面 `.env` 方式用于首次启动前预置或自动化部署。
+
 ```bash
 cp .env.example .env
 # 编辑 .env，填 TRPG_LLM_API_KEY；如需自定义模型，再填 base_url/model
