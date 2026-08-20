@@ -20,9 +20,7 @@ The model API is the chat model used for adventure generation and dice adjudicat
 - Model name, for example `deepseek-v4-pro`.
 - API key from that service.
 
-Save the settings and use Test connection to verify that the model can respond. This is the recommended path for first-time setup; the `.env` variables are only for Docker or headless deployments (see the deployment guide).
-
-If you open Create before finishing the model settings, a notice at the top links directly to Settings. You can still fill in the world and characters first; complete the setup before generating content or starting the adventure.
+Save the settings and click **Test connection** to verify that the model can respond.
 
 ### Long-term memory (vector memory) configuration (optional)
 
