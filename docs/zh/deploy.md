@@ -15,13 +15,20 @@ Docker 里固定把运行数据放在 `/app/data`，compose 会映射到项目�
 
 使用发布镜像：
 
-> 模型 API 优先在 **WebUI 设置 -> 模型接口** 里直接填写（见用户手册「模型 API 配置」）；下面 `.env` 方式用于首次启动前预置或自动化部署。
+> 模型连接优先在 **WebUI 设置 → AI 服务商** 添加，再到 **模型配置** 分配实际使用的模型（见用户手册「AI 服务商与模型配置」）；下面 `.env` 方式用于首次启动前预置或自动化部署。
 
 ```bash
 cp .env.example .env
 # 编辑 .env，填 TRPG_LLM_API_KEY；如需自定义模型，再填 base_url/model
 docker compose pull
 docker compose up -d
+```
+
+默认 Compose 和 `latest` 标签只跟随正式版。预览版同样提供 GHCR 与 Docker Hub 镜像，但必须显式指定完整版本标签，不会覆盖 `latest`：
+
+```bash
+docker pull ghcr.io/diceframe/diceframe:2.3.0-beta.1
+docker pull falconku/diceframe:2.3.0-beta.1
 ```
 
 需要启用长期记忆的语义召回（向量记忆）时，直接在 **WebUI 设置 → 向量记忆** 里配置（开关、向量接口、API Key、模型、最大输入，填好后点「测试向量连接」），无需编辑配置文件。Docker 部署时向量接口填 `http://host.docker.internal:11434`（或宿主机局域网 IP），因为容器内的 `127.0.0.1` 指容器自身；本地 Ollama 方案 API Key 留空。等价地，也可以在 `.env` 中配置：

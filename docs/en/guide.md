@@ -12,15 +12,16 @@ Start the WebUI and open the address printed in the terminal, normally:
 http://localhost:18000
 ```
 
-### Model API configuration (required, fill it in the WebUI)
+### AI providers and model routing (required, configure in the WebUI)
 
-The model API is the chat model used for adventure generation and dice adjudication. **Configure it directly in the WebUI - no config files to edit.** Open **Settings -> Model API** and fill in the main provider fields:
+The model API powers adventure generation, check adjudication, and narration. **Configure it directly in the WebUI—no config files to edit:**
 
-- API URL for an OpenAI-compatible Chat Completions service.
-- Model name, for example `deepseek-v4-pro`.
-- API key from that service.
+1. Open **Settings → AI Providers** and add the provider name, API format (OpenAI-compatible or Anthropic), Base URL, and API key.
+2. Fetch the provider's model catalog or add supported model IDs manually.
+3. Open **Settings → Model routing** and assign a saved provider and model to the main role. Add two fallbacks or assign embedding, TTS, ASR, and image-generation roles when needed.
+4. Save and use the relevant connection-test buttons to verify each service.
 
-Save the settings and click **Test connection** to verify that the model can respond.
+An endpoint and credential are stored once and can be reused by multiple roles. Existing inline Base URL, model, and API key settings from older releases remain supported; the new UI does not force a migration or invalidate them. Add providers later when you want centralized management.
 
 ### Long-term memory (vector memory) configuration (optional)
 
@@ -252,7 +253,7 @@ Check for a new version under Settings → Version Update. The apply method depe
 - Windows portable builds can download and apply an update in the WebUI. A failed candidate returns to the old version.
 - Extracted source releases can apply an update and then ask for a manual restart.
 - Git development checkouts should use `git pull`.
-- Docker uses `docker compose pull && docker compose up -d`. NAS users can also pull and recreate the image from the device's container manager.
+- Stable Docker installations use `docker compose pull && docker compose up -d`; `latest` tracks stable releases only. Preview builds must be pulled with the full explicit tag, such as `ghcr.io/diceframe/diceframe:2.3.0-beta.1` or `falconku/diceframe:2.3.0-beta.1`, and never replace `latest`. NAS users can enter the same version tag in their container manager.
 
 The first move from v1.6.0 to a release with the new launcher requires one manual upgrade following that release's notes. See [Application Updates](https://github.com/diceframe/diceframe/blob/main/docs/en/updates.md) for details.
 
