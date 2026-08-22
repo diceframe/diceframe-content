@@ -12,15 +12,16 @@
 http://localhost:18000
 ```
 
-### 模型 API 配置（必填，WebUI 界面直接填）
+### AI 服务商与模型配置（必填，WebUI 界面直接填）
 
-模型 API 是生成冒险、掷骰判定的对话模型接口，**直接在 WebUI 界面配置，不需要编辑任何配置文件**：打开 **设置 -> 模型接口**，在「主模型接口」里填写：
+模型 API 是生成冒险、检定判定和叙事的模型接口，**直接在 WebUI 配置，不需要编辑任何配置文件**：
 
-- API 地址：兼容 OpenAI Chat Completions 的接口地址。
-- 模型名：例如 `deepseek-v4-pro`。
-- API Key：模型服务商提供的密钥。
+1. 打开 **设置 → AI 服务商**，添加服务商名称、API 格式（OpenAI 兼容或 Anthropic）、Base URL 和 API Key。
+2. 获取服务商的模型目录，或手动加入可用的模型 ID。
+3. 打开 **设置 → 模型配置**，从已保存的服务商与模型中选择主模型；需要时再配置两个备用模型，以及 Embedding、TTS、ASR 和生图模型。
+4. 保存后使用相应的“测试连接”按钮确认服务可用。
 
-保存后点「测试连接」，确认模型能正常回复即可。
+同一个服务商的地址和密钥只需保存一次，多项能力可以复用。旧版本已经保存的内联 API 地址、模型名和 API Key 仍可直接继续使用；新界面不会强制迁移或破坏旧配置，之后需要统一管理时再添加服务商并分配模型即可。
 
 ### 长期记忆（向量记忆）配置（可选）
 
@@ -256,7 +257,7 @@ DiceFrame 可以通过 QQ / NapCat 插件把网页对局接到群聊里。Bot �
 
 内置 QQ / NapCat 不需要填写 DiceFrame Bot API Token，宿主会自动生成并注入。使用 MaiBot 等外部桥接时，到“设置 → Bot API”复制 DiceFrame 服务地址和 Token，再填写到外部插件；重新生成 Token 后需要同步更新外部插件。
 
-Bot 会跟随当前对局的语言显示帮助、状态、前情、地图、支付和错误提示。中文对局使用下面的中文命令；英文对局可以直接发送 `help`、`join`、`status`、`recap`、`map`、`roll`、`pay`、`advance`、`away`、`back` 等英文命令。
+Bot 会跟随当前对局的语言显示帮助、状态、前情、地图、支付和错误提示。中文对局使用下面的中文命令；英文对局可以直接发送 `help`、`join`、`status`、`recap`、`map`、`pay`、`advance`、`away`、`back` 等英文命令。兼容命令 `roll` 只会说明自动判定流程，不会再次掷骰。
 
 ## 插件商店怎么用
 
@@ -339,7 +340,7 @@ Bot 会尽量私聊发送；如果私聊失败，会提示检查临时会话或�
 - Windows 便携版可以在页面中下载并应用；新版启动失败时会自动回到旧版本。
 - 解压运行的源码发布包可以应用更新，成功后按提示手动重启。
 - Git 开发目录请使用 `git pull`。
-- Docker 使用 `docker compose pull && docker compose up -d`；NAS 也可以在设备自带的容器管理界面检查并拉取新镜像。
+- Docker 正式版使用 `docker compose pull && docker compose up -d`；`latest` 只跟随正式版。预览版必须显式拉取完整版本标签，例如 `ghcr.io/diceframe/diceframe:2.3.0-beta.1` 或 `falconku/diceframe:2.3.0-beta.1`，不会覆盖 `latest`。NAS 也可以在设备自带的容器管理界面填写同一版本标签并拉取新镜像。
 
 从 v1.6.0 第一次升级到带新启动器的版本时，需要按该版本的发布说明手动升级一次。详细说明见 [应用更新说明](https://github.com/diceframe/diceframe/blob/main/docs/zh/updates.md)。
 

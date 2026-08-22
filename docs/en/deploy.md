@@ -15,13 +15,20 @@ The container stores runtime data in `/app/data`; Compose maps it to `./data` in
 
 Using the published image:
 
-> Prefer configuring the model API directly in **WebUI Settings -> Model API** (see the user guide); the `.env` approach below is for pre-seeding before first launch or automated deployments.
+> Prefer adding the connection under **WebUI Settings → AI Providers**, then assigning the active models under **Model routing** (see the user guide); the `.env` approach below is for pre-seeding before first launch or automated deployments.
 
 ```bash
 cp .env.example .env
 # Edit .env and set TRPG_LLM_API_KEY. Override base URL/model only when needed.
 docker compose pull
 docker compose up -d
+```
+
+The default Compose setup and the `latest` tag track stable releases only. Preview builds are also published to GHCR and Docker Hub, but require a full explicit version tag and never replace `latest`:
+
+```bash
+docker pull ghcr.io/diceframe/diceframe:2.3.0-beta.1
+docker pull falconku/diceframe:2.3.0-beta.1
 ```
 
 To enable semantic recall for long-term memory (vector memory), configure it directly in the **WebUI Settings → Vector memory** (toggle, endpoint, API key, model, max input; click **Test vector connection** after filling). No config files to edit. In Docker deployments, point the endpoint at `http://host.docker.internal:11434` (or the host LAN IP), because `127.0.0.1` inside the container refers to the container itself; leave the API key empty for a local Ollama setup. The equivalent `.env` configuration is:

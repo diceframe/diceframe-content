@@ -32,7 +32,7 @@ HTTP 客户端通过 `X-Bot-Token` 请求头鉴权。DiceFrame 托管的插件�
 
 Bot 绑定成功时，DiceFrame 会把当前对局语言一并返回并保存在聊天流绑定中。之后的帮助、状态、前情、地图、支付、建卡提示和错误信息都按该语言显示；旧绑定没有语言字段时继续使用中文。
 
-目前共享核心和 QQ / NapCat 支持中文与英文命令。英文对局可使用 `help`、`join`、`status`、`recap`、`map`、`roll`、`pay`、`advance`、`away`、`back`、`create character` 等命令，行动正文仍可直接使用自然语言。语言以对局设置为准，不会根据每条剧情行动反复猜测。
+目前共享核心和 QQ / NapCat 支持中文与英文命令。英文对局可使用 `help`、`join`、`status`、`recap`、`map`、`pay`、`advance`、`away`、`back`、`create character` 等命令，行动正文仍可直接使用自然语言。兼容命令 `roll` 只返回自动判定说明，不会确认待掷骰或重新掷骰。语言以对局设置为准，不会根据每条剧情行动反复猜测。
 
 ## 触发策略
 
