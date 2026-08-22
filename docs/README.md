@@ -5,6 +5,7 @@
 | 中文 | English |
 | --- | --- |
 | [使用指南](zh/guide.md) | [Guide](en/guide.md) |
+| [语音功能（可选）](zh/voice.md) | [Optional voice features](en/voice.md) |
 | [部署说明](zh/deploy.md) | [Deployment](en/deploy.md) |
 | [插件开发指南](zh/plugin-development.md) | [Plugin development](en/plugin-development.md) |
 | [插件索引与审核](zh/plugin-registry.md) | [Plugin registry](en/plugin-registry.md) |

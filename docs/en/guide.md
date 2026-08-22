@@ -21,7 +21,7 @@ The model API powers adventure generation, check adjudication, and narration. **
 3. Open **Settings → Model routing** and assign a saved provider and model to the main role. Add two fallbacks or assign embedding, TTS, ASR, and image-generation roles when needed.
 4. Save and use the relevant connection-test buttons to verify each service.
 
-An endpoint and credential are stored once and can be reused by multiple roles. Existing inline Base URL, model, and API key settings from older releases remain supported; the new UI does not force a migration or invalidate them. Add providers later when you want centralized management.
+Store each provider endpoint and credential once, then reuse it for the main model, fallbacks, embeddings, speech, and image generation. Upgrading users do not need to migrate immediately: older inline Base URL, model, and API key settings remain supported. Add a provider and choose its models later when you want centralized management.
 
 ### Long-term memory (vector memory) configuration (optional)
 
@@ -52,45 +52,9 @@ With network access and a service key, any OpenAI-compatible online embedding se
 
 Failures are logged and long-term memory falls back to keyword matching, so normal play is unaffected.
 
-## Optional text-to-speech
+## Optional voice features
 
-Speech is not required to play. For a first test, open Settings → Advanced → Text-to-speech and keep Browser / system voice selected. Enable automatic GM narration only if you want it, then save. This mode downloads no model; the available voices come from the current browser and operating system.
-
-For a more natural local voice, DiceFrame handles connection and playback while a separate application such as Kokoro or GPT-SoVITS generates the audio. Installing a voice preset does not download a multi-gigabyte model and does not start a TTS server in the background.
-
-### Easiest local option: Kokoro
-
-If Docker Desktop is already installed, start the open-source Kokoro-FastAPI CPU service:
-
-```powershell
-docker run --name diceframe-kokoro -p 8880:8880 ghcr.io/remsky/kokoro-fastapi-cpu:v0.6.0
-```
-
-The first run downloads the image and model. Leave that terminal running, then configure DiceFrame:
-
-1. Open Settings → Advanced → Text-to-speech.
-2. Select OpenAI compatible.
-3. Set `Base URL` to `http://127.0.0.1:8880/v1`.
-4. Leave `API Key` empty, set the model to `kokoro`, and choose `MP3`.
-5. Install and enable **Kokoro Chinese Voice Presets** from the plugin store or Local Install. The preset is optional: you can instead add a personal OpenAI-compatible voice with an existing ID such as `zf_xiaobei`.
-6. Choose the default, GM, and player voices under Role voice mapping, then select Save and test.
-7. Once preview works, optionally enable automatic narration. Public narration can still be played manually from the Play page when automatic speech is off.
-
-When DiceFrame itself runs in Docker, `127.0.0.1` refers to the DiceFrame container rather than the Windows host. Use `http://host.docker.internal:8880/v1` in the common desktop setup, or the TTS service name when both containers share a network.
-
-### GPT-SoVITS
-
-Start the GPT-SoVITS HTTP API using its own instructions, then select GPT-SoVITS and enter its service URL. Each personal voice also needs a reference WAV, an exact transcript, and the prompt language:
-
-- Upload the WAV when DiceFrame and the TTS service can read the same local file.
-- For another computer or container, use Server-visible path. The path must be readable from the TTS service itself.
-
-### Troubleshooting
-
-- Connection failed: open Kokoro's `http://127.0.0.1:8880/docs` first, then check that the DiceFrame Base URL ends in `/v1`.
-- Voice not found: enable the installed preset, or verify that the voice ID exists in the active TTS server.
-- Browser speech works but local speech fails: this is normally a server, port, or container-network issue. Switching back to Browser voice does not affect saves.
-- A remote TTS service receives the public narration that it is asked to speak. Prefer a local service for private sessions, and never expose the admin UI or local TTS port directly to the public internet.
+Text-to-speech and voice input are optional. See [Optional voice features](voice.md) for browser voices, online or local engines, voice mapping, voice input, and troubleshooting.
 
 ## Start a Game
 
