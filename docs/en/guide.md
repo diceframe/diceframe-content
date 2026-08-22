@@ -233,6 +233,8 @@ Players may mention the Bot and send a natural-language action:
 
 Chat and Web use the same adjudication and full-table/manual progression flow. When a check is needed, the server rolls automatically and the Bot sends a compact line such as `🎲 Character · Strength Check d20=… vs DC … → Success`, followed by GM narration and recorded state changes.
 
+The compatibility command `roll` only explains this automatic flow; it never rolls again or confirms a pending die.
+
 ## Private Information
 
 Some clues belong to one character, such as hidden doors, hallucinations, dreams, private thoughts, or unique perceptions. In group chat, send:

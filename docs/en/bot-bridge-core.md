@@ -32,7 +32,7 @@ The HTTP client authenticates through `X-Bot-Token`. The host generates and inje
 
 When binding succeeds, DiceFrame returns the game's language and the bridge stores it with the chat-stream binding. Help, status, recap, map, payment, character-creation, and error messages then use that language. Existing bindings without a language field continue to default to Chinese.
 
-The shared core and QQ/NapCat currently accept both Chinese and English commands. English games can use commands such as `help`, `join`, `status`, `recap`, `map`, `roll`, `pay`, `advance`, `away`, `back`, and `create character`; campaign actions remain natural-language text. The game setting is authoritative, so the bridge does not repeatedly guess from each story action.
+The shared core and QQ/NapCat currently accept both Chinese and English commands. English games can use commands such as `help`, `join`, `status`, `recap`, `map`, `pay`, `advance`, `away`, `back`, and `create character`; campaign actions remain natural-language text. The compatibility command `roll` only explains automatic adjudication and never confirms or rerolls a die. The game setting is authoritative, so the bridge does not repeatedly guess from each story action.
 
 ## Trigger Policy
 

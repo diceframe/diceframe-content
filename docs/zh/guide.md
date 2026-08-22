@@ -256,7 +256,7 @@ DiceFrame 可以通过 QQ / NapCat 插件把网页对局接到群聊里。Bot �
 
 内置 QQ / NapCat 不需要填写 DiceFrame Bot API Token，宿主会自动生成并注入。使用 MaiBot 等外部桥接时，到“设置 → Bot API”复制 DiceFrame 服务地址和 Token，再填写到外部插件；重新生成 Token 后需要同步更新外部插件。
 
-Bot 会跟随当前对局的语言显示帮助、状态、前情、地图、支付和错误提示。中文对局使用下面的中文命令；英文对局可以直接发送 `help`、`join`、`status`、`recap`、`map`、`roll`、`pay`、`advance`、`away`、`back` 等英文命令。
+Bot 会跟随当前对局的语言显示帮助、状态、前情、地图、支付和错误提示。中文对局使用下面的中文命令；英文对局可以直接发送 `help`、`join`、`status`、`recap`、`map`、`pay`、`advance`、`away`、`back` 等英文命令。兼容命令 `roll` 只会说明自动判定流程，不会再次掷骰。
 
 ## 插件商店怎么用
 
