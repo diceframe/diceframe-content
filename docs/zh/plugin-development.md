@@ -810,3 +810,10 @@ python scripts\package_plugin.py plugins\my-plugin --overwrite
 | 插件包包含多个 plugin.json | `.dfplugin` 混入多个插件目录 | 一个文件只打一个插件 |
 | 声明型插件启用后没显示内容 | `enabled` 仍是 false，或 `contributes` glob 没匹配到文件 | 在插件设置页启用，并检查路径大小写 |
 | 进程型插件启动失败 | `entrypoint` 命令错误或依赖缺失 | 先在本地用同一命令运行，确认退出码和日志 |
+# Content V2 参考
+
+内容包的稳定身份、本地化 overlay 和 V1 迁移请先阅读：
+
+- [Content V2 本地化](content-localization-v2.md)
+- [Content Pack V2 格式](content-pack-format-v2.md)
+- [V1 到 V2 迁移](content-pack-migration-v1-v2.md)

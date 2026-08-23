@@ -587,3 +587,10 @@ DiceFrame does not pre-screen every community item; maintainers delist violating
 | Update needs approval | Runtime or effective permissions expanded | Review the change and confirm manually |
 | Declarative content is missing | Plugin disabled or glob matched nothing | Enable it and check path case |
 | Process fails to start | Invalid entrypoint or missing dependency | Run the entrypoint locally and inspect logs |
+# Content V2 references
+
+For stable resource identity, locale overlays, and V1 migration, read:
+
+- [Content V2 Localization](content-localization-v2.md)
+- [Content Pack V2 Format](content-pack-format-v2.md)
+- [V1 to V2 Migration](content-pack-migration-v1-v2.md)
