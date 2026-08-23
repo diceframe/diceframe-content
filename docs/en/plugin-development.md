@@ -290,7 +290,7 @@ The lifecycle and precedence are standardized:
 
 Put an image on a world when it has distinct art; put it only on the ruleset when several worlds share a visual. Existing packs without `scene_image` require no migration and use the built-in fallback.
 
-Use stable IDs and avoid built-in IDs. Content catalogs are never imported automatically; selected world and ruleset templates do initialize a new save according to the lifecycle above. Worlds and catalog records declare `language`; world text is not automatically translated. Rules use `<rule_id>.json` for Chinese and `<rule_id>_en.json` for English, with Chinese fallback. Protocol fields and GM tags remain language-neutral.
+Use stable IDs and avoid built-in IDs. Content catalogs are never imported automatically; selected world and ruleset templates do initialize a new save according to the lifecycle above. Worlds and catalog records declare `language`; world text is not automatically translated. Content V2 rules use one canonical `<rule_id>.json` core plus `locales/<locale>/<rule_id>.json` typed overlays. Overlays are display-only; legacy full-copy files are compatibility inputs, not the authoring format. Protocol fields and GM tags remain language-neutral.
 
 #### 7.2.1 AI check metadata and the offline intent fallback
 
