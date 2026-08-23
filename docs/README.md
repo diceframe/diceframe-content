@@ -17,3 +17,15 @@
 主仓库中的版本绑定文档包括[规则与骰子](https://github.com/diceframe/diceframe/blob/main/docs/zh/rules-and-dice.md)、[玩家直连](https://github.com/diceframe/diceframe/blob/main/docs/zh/direct-connect.md)和[架构说明](https://github.com/diceframe/diceframe/blob/main/docs/ARCHITECTURE_CN.md)。
 
 公开公告和法律文件位于仓库根目录的 [`content/`](../content/)。修改公告时，依赖公告源的服务可能需要同步或重新部署；普通文档更新由官网直接读取，不需要复制到 DiceFrame Hub。
+
+## Content V2 入口
+
+内容包的 manifest 版本彼此独立：`schema_version: 1` 是插件 manifest 主版本，
+`content_schema_version: 2` 表示 canonical 内容格式，`locale_schema_version: 1` 表示 typed
+locale overlay。资源引用使用 `ResourceRef`（`owner + kind + local_id`），例如
+`plugin:starter-content-v2:item:moon_blade`；翻译名称不是身份，locale 也不能修改 mechanics。
+
+- [Content V2 格式（中文）](zh/content-pack-format-v2.md) / [English](en/content-pack-format-v2.md)
+- [Content V2 本地化（中文）](zh/content-localization-v2.md) / [English](en/content-localization-v2.md)
+- [V1 到 V2 迁移（中文）](zh/content-pack-migration-v1-v2.md) / [English](en/content-pack-migration-v1-v2.md)
+- [主仓库 starter-content-v2 示例](https://github.com/diceframe/diceframe/tree/main/plugins/examples/starter-content-v2)

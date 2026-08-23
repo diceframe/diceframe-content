@@ -2,7 +2,7 @@
 
 1. Assign stable canonical `local_id` values to rules, worlds, classes, items, and other resources.
 2. Move `name_en`, `name_ja`, and full localized copies into `locales/<locale>/` overlays.
-3. Preserve legacy and unknown user fields; read them through the V1 adapter before projecting V2 identity.
+3. Preserve legacy and unknown user fields. Runtime V1 adapters continue to read them; only an explicit author/tool conversion writes V2 identity, and the original pack is not rewritten automatically.
 4. Run the main-repository validator and locale mechanics snapshots before publishing the pack.
 
 Migration does not delete saves or rewrite old databases, and translated names never become identities.

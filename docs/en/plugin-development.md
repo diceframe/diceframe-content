@@ -342,7 +342,7 @@ The normal path no longer triggers a check from keywords in a player's message. 
 
 **Inheriting the main vocabulary**: a plugin rule's `extends` can reference vocabulary under the main program's `templates/rules/` (for example `intents_base`) by writing `"extends": "intents_base"`. Inheritance is opt-in — rules that do not need the vocabulary can omit it and rely on the global fallback.
 
-**Multi-language extension**: vocabularies are data-driven. Adding a language only requires adding keys (such as `ja`) to `aliases` / `skill_candidates` and registering the language suffix in `engine/language.py`. New languages do not pollute other languages.
+**Multi-language extension**: vocabularies are data-driven. Adding a language only requires adding keys (such as `ja`) to `aliases` / `skill_candidates`. Display text in a content pack belongs in `locales/<locale>/` overlays; plugin authors do not edit the DiceFrame engine or register `_en`/`_ja` suffixes. New languages do not pollute other languages.
 
 #### 7.2.2 Special-stat initial values and the skill bonus table
 

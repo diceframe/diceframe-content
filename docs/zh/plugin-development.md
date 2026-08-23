@@ -469,7 +469,7 @@ content/
 
 **继承主程序词库**：插件规则的 `extends` 支持继承主程序 `templates/rules/` 下的词表（如 `intents_base`），只需写 `"extends": "intents_base"`。继承是"按需"的——不需要词库的规则可以不继承，用全局兜底即可。
 
-**多语言扩展**：词表是数据驱动的，加语言只需给 `aliases` / `skill_candidates` 增加对应语言键（如 `ja`），并保证 `engine/language.py` 登记了该语言后缀。新增语言不会污染其他语言场景。
+**多语言扩展**：词表是数据驱动的，加语言只需给 `aliases` / `skill_candidates` 增加对应语言键（如 `ja`）。内容包的显示文本使用 `locales/<locale>/` overlay；插件作者不需要修改 DiceFrame 引擎文件或注册 `_en`/`_ja` 后缀。新增语言不会污染其他语言场景。
 
 #### 7.2.2 特殊属性起点与技能加值表
 
