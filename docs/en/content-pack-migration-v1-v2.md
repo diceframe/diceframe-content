@@ -6,4 +6,6 @@
 4. Run the main-repository validator and locale mechanics snapshots before publishing the pack.
 
 Migration does not delete saves or rewrite old databases, and translated names never become identities.
-Legacy packs remain usable while their V2 representation is generated incrementally.
+Legacy V1 packs remain readable through compatibility adapters. Installing, loading, starting, or saving
+a game does not rewrite the original pack. Creating a V2 representation is an explicit author/tool
+migration operation.

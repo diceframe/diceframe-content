@@ -10,7 +10,9 @@ The manifest uses independent version fields:
 (1 or 2); `locale_schema_version` is the typed locale overlay format (currently 1); and `default_locale`
 is the package fallback. Unknown future versions are rejected. Resource identity is the `(owner, kind,
 local_id)` tuple represented by `ResourceRef`, for example `core:item:longsword` or
-`plugin:my-pack:item:moon_blade`.
+`plugin:my-pack:item:moon_blade`. Canonical IDs include `fighter`, `longsword`, `chain_mail`,
+`athletics`, and `str`; `longsword` may be displayed as `长剑`, `Longsword`, or `ロングソード`,
+but the identity remains `longsword`.
 
 Core resources live under `content/<kind>/`; locale overlays live under
 `locales/<locale>/<kind>/`. Locale files may contain display and linguistic fields only. The validator
@@ -32,3 +34,16 @@ Locale lookup is exact → base → package `default_locale` → its base → co
 `damage_dice`, `ac_base`, and other mechanics belong only in core; putting them in locale is rejected.
 Rules and worlds use plain IDs and reject duplicate IDs across plugins. Ordinary items, classes, spells,
 NPCs, and character templates coexist through namespaced `ResourceRef` values.
+
+## World Locale Example
+
+World core owns the canonical `starter_lorebook` entry IDs, types, tiers, and other mechanics. A world
+locale may only localize display fields by those stable IDs; it cannot replace the entry list or change
+its mechanics:
+
+```json
+{"starter_lorebook":{"npc_guide":{"name":"Guide","keywords":["guide"],"content":"A local guide."}}}
+```
+
+`npc_guide` must already exist in the core world. World locale overlays may also provide
+`world_name`, `description`, `world_setting`, and `starter_scene`; `suggested_difficulty` remains core.
