@@ -17,6 +17,16 @@ Docker 里固定把运行数据放在 `/app/data`，compose 会映射到项目�
 
 使用发布镜像：
 
+Compose 命令必须在含有 `docker-compose.yml` 的 DiceFrame 部署目录执行。请先克隆仓库或下载并解压 GitHub Release 的源码包，再进入其根目录：
+
+```bash
+git clone --depth 1 https://github.com/diceframe/diceframe.git
+cd diceframe
+test -f docker-compose.yml
+```
+
+如果使用的是下载的源码包，只需把 `cd diceframe` 换成实际解压目录。最后一条命令没有输出才表示目录正确。
+
 > 模型连接优先在 **WebUI 设置 → AI 服务商** 添加，再到 **模型配置** 分配实际使用的模型（见用户手册「AI 服务商与模型配置」）；下面 `.env` 方式用于首次启动前预置或自动化部署。
 
 ```bash
@@ -57,12 +67,16 @@ DICEFRAME_HTTP_PORT=8080
 
 ## 常用命令
 
+以下命令同样需要在上述部署目录执行：
+
 ```bash
 docker compose pull
 docker compose up -d
 docker compose logs -f
 docker compose down
 ```
+
+如果提示 `no configuration file provided: not found`，不是镜像故障，而是当前目录没有 Compose 配置文件。请进入原部署目录并确认 `docker-compose.yml` 存在。如果最初使用 `docker run` 或 NAS 容器管理界面创建容器，这些 Compose 命令不适用；请保留原来的端口、环境变量和 `data` 挂载，拉取新镜像后在原管理方式中重新创建容器。
 
 如果你在本地修改了源码，需要重新构建自己的镜像：
 

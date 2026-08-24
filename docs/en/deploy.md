@@ -17,6 +17,16 @@ If only the browser application should be hosted on Cloudflare Pages or another 
 
 Using the published image:
 
+Compose commands must be run from a DiceFrame deployment directory containing `docker-compose.yml`. Clone the repository or download and extract a source archive from GitHub Releases, then enter its root directory:
+
+```bash
+git clone --depth 1 https://github.com/diceframe/diceframe.git
+cd diceframe
+test -f docker-compose.yml
+```
+
+For an extracted source archive, replace `cd diceframe` with its actual directory. The final command should produce no output when the directory is correct.
+
 > Prefer adding the connection under **WebUI Settings → AI Providers**, then assigning the active models under **Model routing** (see the user guide); the `.env` approach below is for pre-seeding before first launch or automated deployments.
 
 ```bash
@@ -51,12 +61,16 @@ Then open `http://localhost:8080`. The internal port remains `9876`, keeping Web
 
 ## Common Commands
 
+Run these commands from the same deployment directory:
+
 ```bash
 docker compose pull
 docker compose up -d
 docker compose logs -f
 docker compose down
 ```
+
+`no configuration file provided: not found` is not an image failure; it means the current directory has no Compose file. Change to the original deployment directory and verify that `docker-compose.yml` exists. If the container was originally created with `docker run` or a NAS container manager, these Compose commands do not apply. Preserve the original ports, environment variables, and `data` mount, pull the new image, and recreate the container through the original deployment method.
 
 To rebuild an image after changing the local source:
 
