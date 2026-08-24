@@ -416,7 +416,7 @@ content/
 
 - 世界模板、世界书和内容目录用 `language` 标识内容语言，常用值为 `zh-CN` 和 `en`。创建游戏时同语言内容会优先显示，其他语言内容仍可选择。
 - 世界模板正文按内容语言书写：`world_name`、`description`、`world_setting`、`starter_scene`、`starter_lorebook[].content` 不会被宿主自动翻译。
-- 规则模板按语言拆分文件：`<rule_id>.json`（中文版，纯中文）+ `<rule_id>_en.json`（英文版，纯英文全文）。`rule_id` 保持不变（是引用键，`world.default_rule` 指向它，不随语言变，区别于世界模板的 `world_id`）。`RuleSystem.path_for(rules_dir, rule_id, language)` 按游戏语言选文件（`_en.json` 不存在则回退中文版）。规则列表与详情会配对合并各语言文件，前端按界面语言显示对应字段。自定义规则可不拆，保持单文件并在字段后加 `_en` 后缀（如 `attr_hint_en`）做英文显示。新增语言：在 `engine/language.py` 的 `_LANG_FIELD_SUFFIXES` 登记后缀，加 `<rule_id>_<suffix>.json`，加载/展示自动生效。
+- Content V2 规则使用单一 canonical core 与 `locales/<locale>/<rule_id>.json` typed overlay；`rule_id` 永远是稳定引用键，locale 只覆盖显示/语言字段，不改变 mechanics。旧 `<rule_id>_en.json`、`<rule_id>_ja.json` 和 `_en` 字段仅由 V1 compatibility 读取，新内容不要继续创建这些副本。
 - 规则字段、枚举、协议标签和内部难度键保持稳定，例如 `rule_id`、`dice_system`、`combat_model`、`mechanics`、`difficulty_instructions` 的键、GM 标签 `HP/GOLD/QUICK_ACTIONS` 等不随内容语言改名。
 
 #### 7.2.1 AI 检定元数据与离线兼容词表
@@ -469,7 +469,7 @@ content/
 
 **继承主程序词库**：插件规则的 `extends` 支持继承主程序 `templates/rules/` 下的词表（如 `intents_base`），只需写 `"extends": "intents_base"`。继承是"按需"的——不需要词库的规则可以不继承，用全局兜底即可。
 
-**多语言扩展**：词表是数据驱动的，加语言只需给 `aliases` / `skill_candidates` 增加对应语言键（如 `ja`），并保证 `engine/language.py` 登记了该语言后缀。新增语言不会污染其他语言场景。
+**多语言扩展**：词表是数据驱动的，加语言只需给 `aliases` / `skill_candidates` 增加对应语言键（如 `ja`）。内容包的显示文本使用 `locales/<locale>/` overlay；插件作者不需要修改 DiceFrame 引擎文件或注册 `_en`/`_ja` 后缀。新增语言不会污染其他语言场景。
 
 #### 7.2.2 特殊属性起点与技能加值表
 
@@ -810,3 +810,10 @@ python scripts\package_plugin.py plugins\my-plugin --overwrite
 | 插件包包含多个 plugin.json | `.dfplugin` 混入多个插件目录 | 一个文件只打一个插件 |
 | 声明型插件启用后没显示内容 | `enabled` 仍是 false，或 `contributes` glob 没匹配到文件 | 在插件设置页启用，并检查路径大小写 |
 | 进程型插件启动失败 | `entrypoint` 命令错误或依赖缺失 | 先在本地用同一命令运行，确认退出码和日志 |
+# Content V2 参考
+
+内容包的稳定身份、本地化 overlay 和 V1 迁移请先阅读：
+
+- [Content V2 本地化](content-localization-v2.md)
+- [Content Pack V2 格式](content-pack-format-v2.md)
+- [V1 到 V2 迁移](content-pack-migration-v1-v2.md)

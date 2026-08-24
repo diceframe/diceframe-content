@@ -290,7 +290,7 @@ The lifecycle and precedence are standardized:
 
 Put an image on a world when it has distinct art; put it only on the ruleset when several worlds share a visual. Existing packs without `scene_image` require no migration and use the built-in fallback.
 
-Use stable IDs and avoid built-in IDs. Content catalogs are never imported automatically; selected world and ruleset templates do initialize a new save according to the lifecycle above. Worlds and catalog records declare `language`; world text is not automatically translated. Rules use `<rule_id>.json` for Chinese and `<rule_id>_en.json` for English, with Chinese fallback. Protocol fields and GM tags remain language-neutral.
+Use stable IDs and avoid built-in IDs. Content catalogs are never imported automatically; selected world and ruleset templates do initialize a new save according to the lifecycle above. Worlds and catalog records declare `language`; world text is not automatically translated. Content V2 rules use one canonical `<rule_id>.json` core plus `locales/<locale>/<rule_id>.json` typed overlays. Overlays are display-only; legacy full-copy files are compatibility inputs, not the authoring format. Protocol fields and GM tags remain language-neutral.
 
 #### 7.2.1 AI check metadata and the offline intent fallback
 
@@ -342,7 +342,7 @@ The normal path no longer triggers a check from keywords in a player's message. 
 
 **Inheriting the main vocabulary**: a plugin rule's `extends` can reference vocabulary under the main program's `templates/rules/` (for example `intents_base`) by writing `"extends": "intents_base"`. Inheritance is opt-in — rules that do not need the vocabulary can omit it and rely on the global fallback.
 
-**Multi-language extension**: vocabularies are data-driven. Adding a language only requires adding keys (such as `ja`) to `aliases` / `skill_candidates` and registering the language suffix in `engine/language.py`. New languages do not pollute other languages.
+**Multi-language extension**: vocabularies are data-driven. Adding a language only requires adding keys (such as `ja`) to `aliases` / `skill_candidates`. Display text in a content pack belongs in `locales/<locale>/` overlays; plugin authors do not edit the DiceFrame engine or register `_en`/`_ja` suffixes. New languages do not pollute other languages.
 
 #### 7.2.2 Special-stat initial values and the skill bonus table
 
@@ -587,3 +587,10 @@ DiceFrame does not pre-screen every community item; maintainers delist violating
 | Update needs approval | Runtime or effective permissions expanded | Review the change and confirm manually |
 | Declarative content is missing | Plugin disabled or glob matched nothing | Enable it and check path case |
 | Process fails to start | Invalid entrypoint or missing dependency | Run the entrypoint locally and inspect logs |
+# Content V2 references
+
+For stable resource identity, locale overlays, and V1 migration, read:
+
+- [Content V2 Localization](content-localization-v2.md)
+- [Content Pack V2 Format](content-pack-format-v2.md)
+- [V1 to V2 Migration](content-pack-migration-v1-v2.md)

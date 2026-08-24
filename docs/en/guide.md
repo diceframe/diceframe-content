@@ -74,7 +74,10 @@ Interface language changes WebUI text. Game language is stored in the save and c
 
 World templates, lorebooks, and content packs have their own `language`. Create prioritizes matching content but still shows other languages. Selecting Chinese content in an English UI does not translate the content, and vice versa.
 
-Rules use `<rule_id>.json` for Chinese and `<rule_id>_en.json` for English. The game loads the matching language and falls back to Chinese when an English file is absent.
+Content V2 rules use one canonical core `<rule_id>.json` with typed overlays at
+`locales/<locale>/<rule_id>.json`. Overlays may change display fields but never mechanics. Legacy
+`<rule_id>_en.json`/`<rule_id>_ja.json` files are V1 compatibility inputs only and must not be used
+for new content.
 
 ## Turns and Actions
 

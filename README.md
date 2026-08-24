@@ -11,6 +11,15 @@ DiceFrame 的公开内容仓库，包含公告、使用文档、用户协议和�
 
 DiceFrame 客户端会读取这里发布的最新公开文本；历史版本继续保留，便于查阅和对照。
 
+## Content V2
+
+插件内容包使用 `content_schema_version: 2`，并可声明 `locale_schema_version: 1` 与
+`default_locale`。资源身份是 `plugin:<plugin_id>:<kind>:<local_id>`（即
+`ResourceRef`）；不同插件可以复用同一个本地 ID，locale overlay 只提供展示和语言字段，不能
+改变骰制、数值、能力或权限。V1 包仍保持读取兼容，但不会被文档或运行时自动改写成 V2。
+
+从可运行示例开始：[starter-content-v2](https://github.com/diceframe/diceframe/tree/main/plugins/examples/starter-content-v2)。
+
 ## 使用方式
 
 可以通过以下地址直接阅读：

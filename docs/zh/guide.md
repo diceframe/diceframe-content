@@ -74,7 +74,9 @@ DiceFrame 会把玩家行动交给 GM 模型，模型返回叙事和状态标签
 
 世界模板、世界书和内容包有自己的内容语言。创建页会优先列出同语言模板，也会标出其他模板或世界书的内容语言。选择中文世界书时，英文界面仍会显示这本世界书的中文内容；选择英文世界书时，中文界面也不会把原文自动改写成中文。
 
-规则按语言拆分文件：中文版 `<rule_id>.json` + 英文版 `<rule_id>_en.json`。创建游戏时按游戏语言自动加载对应版本，缺少英文版时用中文版。
+Content V2 规则使用单一 canonical core `<rule_id>.json`，语言内容放在
+`locales/<locale>/<rule_id>.json` typed overlay 中。locale 只覆盖显示字段，不能改变机制；旧
+`<rule_id>_en.json`/`<rule_id>_ja.json` 仅作为 V1 compatibility 输入，不要用于新内容。
 
 ## 回合和行动
 
