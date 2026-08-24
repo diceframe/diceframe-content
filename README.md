@@ -5,7 +5,7 @@ DiceFrame 的公开内容仓库，包含公告、使用文档、用户协议和�
 ## 仓库内容
 
 - `content/`：公告、用户协议和隐私政策。
-- `docs/`：面向玩家的中英文用户手册、部署文档与插件生态技术文档（插件开发、插件索引与审核、Bot Bridge、音色发布、场景图），可直接在 GitHub 中阅读。与具体代码版本强绑定的架构、应用更新、规则引擎和实验功能契约保留在主仓库 [`diceframe/diceframe`](https://github.com/diceframe/diceframe/tree/main/docs)，这里提供入口和面向用户的摘要。
+- `docs/`：面向玩家的中英文用户手册、部署文档（包括独立 WebUI）与插件生态技术文档（插件开发、插件索引与审核、Bot Bridge、音色发布、场景图），可直接在 GitHub 中阅读。与具体代码版本强绑定的架构、应用更新、规则引擎和实验功能契约保留在主仓库 [`diceframe/diceframe`](https://github.com/diceframe/diceframe/tree/main/docs)，这里提供入口和面向用户的摘要。官网仓库只负责展示和导航这些公开文档，不维护重复正文。
 
 `content/manifest.json` 指向当前公开版本，是公告和法律文本的发布来源；历史法律版本继续保留。主程序仓库中的 `legal/` 仅保存随发行版打包的离线快照，应与这里对应版本的原文保持一致。
 

@@ -11,6 +11,8 @@ python web_server.py
 
 The container stores runtime data in `/app/data`; Compose maps it to `./data` in the project directory. Saves, settings, access credentials, and plugin runtime data remain on the host when the image is rebuilt. User-installed plugin source code lives under `/app/data/plugin-packages/` and is preserved with the data volume across image upgrades or container rebuilds; `/app/plugins` holds only built-in and example plugins and is updated with the image.
 
+If only the browser application should be hosted on Cloudflare Pages or another static host while the backend remains on your own device, see [Deploying the WebUI Separately](standalone-webui.md). That mode is optional and does not change the Windows, Linux, or Docker deployment described here.
+
 ## Quick Start
 
 Using the published image:

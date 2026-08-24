@@ -11,6 +11,8 @@ python web_server.py
 
 Docker 里固定把运行数据放在 `/app/data`，compose 会映射到项目根目录的 `./data`。存档、配置、访问令牌、插件运行数据都留在宿主机，不会被镜像重建清掉。用户安装的插件源码也落在 `/app/data/plugin-packages/`，随 data 卷保留，升级或重建容器后不会丢失；`/app/plugins` 仅内置示例，随镜像更新。
 
+如果只想把浏览器页面部署到 Cloudflare Pages 等静态托管、后端仍运行在自己的设备上，请改看[独立部署 WebUI](standalone-webui.md)。这种模式是可选项，不影响本页的 Windows、Linux 或 Docker 部署方式。
+
 ## 快速启动
 
 使用发布镜像：
