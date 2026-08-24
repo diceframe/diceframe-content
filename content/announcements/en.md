@@ -20,4 +20,4 @@ Contributions, documentation improvements, and reviews are welcome under [AGPL-3
 
 ## 📄 Terms and privacy
 
-Before continuing, read the complete [Terms of Use](https://github.com/diceframe/diceframe-content/blob/main/content/legal/terms/1.0/en.md) and [Privacy Policy](https://github.com/diceframe/diceframe-content/blob/main/content/legal/privacy/1.0/en.md). Anonymous usage statistics are off by default and begin only after active opt-in; keeping them off does not restrict local features.
+Before continuing, read the complete [Terms of Use](https://github.com/diceframe/diceframe-content/blob/main/content/legal/terms/1.1/en.md) and [Privacy Policy](https://github.com/diceframe/diceframe-content/blob/main/content/legal/privacy/1.2/en.md). Anonymous usage statistics are off by default and begin only after active opt-in; keeping them off does not restrict local features.

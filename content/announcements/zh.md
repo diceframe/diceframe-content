@@ -20,4 +20,4 @@ DiceFrame 是由贡献者共同维护的开源项目。维护者会根据可复�
 
 ## 📄 用户协议与隐私
 
-继续使用前，请阅读完整的 [用户协议](https://github.com/diceframe/diceframe-content/blob/main/content/legal/terms/1.0/zh.md) 和 [隐私政策](https://github.com/diceframe/diceframe-content/blob/main/content/legal/privacy/1.0/zh.md)。匿名使用统计默认关闭，只有您主动开启并确认后才会发送；不启用不影响本地功能。
+继续使用前，请阅读完整的 [用户协议](https://github.com/diceframe/diceframe-content/blob/main/content/legal/terms/1.1/zh.md) 和 [隐私政策](https://github.com/diceframe/diceframe-content/blob/main/content/legal/privacy/1.2/zh.md)。匿名使用统计默认关闭，只有您主动开启并确认后才会发送；不启用不影响本地功能。
