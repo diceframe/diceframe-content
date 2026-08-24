@@ -29,11 +29,23 @@ for entry in MANIFEST.get("announcements", {}).values():
     else:
         raise ValueError("invalid announcement manifest entry")
 
-for document in MANIFEST.get("documents", {}).values():
+documents = MANIFEST.get("documents")
+if not isinstance(documents, dict):
+    raise ValueError("manifest requires legal documents")
+
+for document_name in ("terms", "privacy"):
+    document = documents.get(document_name)
     if not isinstance(document, dict):
-        raise ValueError("invalid legal document manifest entry")
-    for localized in document.get("languages", {}).values():
-        if isinstance(localized, dict):
-            verify(localized.get("path"), localized.get("sha256"))
-        else:
+        raise ValueError(f"invalid legal document manifest entry: {document_name}")
+    version = document.get("version")
+    languages = document.get("languages")
+    if not isinstance(version, str) or not version or not isinstance(languages, dict):
+        raise ValueError(f"invalid legal document metadata: {document_name}")
+    for language in ("zh", "en"):
+        localized = languages.get(language)
+        if not isinstance(localized, dict):
             raise ValueError("invalid legal language manifest entry")
+        expected_path = f"legal/{document_name}/{version}/{language}.md"
+        if localized.get("path") != expected_path:
+            raise ValueError(f"legal path does not match version: {expected_path}")
+        verify(localized.get("path"), localized.get("sha256"))

@@ -1,44 +1,44 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-08-11",
+  "updated_at": "2026-08-21",
   "announcements": {
     "zh": {
       "path": "announcements/zh.md",
-      "sha256": "0c797704e94d53b7aad61be82771e95e5fb17b403a6beca6717b02e2aba2987e"
+      "sha256": "b11a644667e3a4dea8fea34364456a696cbc23f267c290fa562dec598f0d7ddb"
     },
     "en": {
       "path": "announcements/en.md",
-      "sha256": "13fab1691ccaa7769fc941941e4a0205568d3e5a8fe8db6c8b59b02ea9486052"
+      "sha256": "7e89a7073cc4e82caefd71b49590dd96c421a089cd3eca5c762289a6e6ba938b"
     }
   },
   "documents": {
     "terms": {
-      "version": "1.0",
-      "updated_at": "2026-08-11",
+      "version": "1.1",
+      "updated_at": "2026-08-20",
       "requires_confirmation": true,
       "languages": {
         "zh": {
-          "path": "legal/terms/1.0/zh.md",
-          "sha256": "511a0b1805bef4b6d732722678e072b38a95792d812084159dbb2db9dea409d1"
+          "path": "legal/terms/1.1/zh.md",
+          "sha256": "92a710442da6f9312983c3978f0eb48457159fbc1a849bd66747efb96d0d689f"
         },
         "en": {
-          "path": "legal/terms/1.0/en.md",
-          "sha256": "8fe82e04e59f27c69c9357cfc3e7141730bb7ffbf79fe95f9b3969d09492f717"
+          "path": "legal/terms/1.1/en.md",
+          "sha256": "2881cb1b6d6e224ba242e8da8e1cfbd10c8a61d5df0da77548103c7ccf4a0a7a"
         }
       }
     },
     "privacy": {
-      "version": "1.0",
-      "updated_at": "2026-08-11",
+      "version": "1.2",
+      "updated_at": "2026-08-21",
       "requires_confirmation": true,
       "languages": {
         "zh": {
-          "path": "legal/privacy/1.0/zh.md",
-          "sha256": "81e939bb07b0b78ac8498aa2ed78278c0b9f9127d5c477b4036b3d6539f9f69d"
+          "path": "legal/privacy/1.2/zh.md",
+          "sha256": "5e7039706e17b94879e549f9f8b03a6efa8ec1e2cefdf347c30d3094ee03d784"
         },
         "en": {
-          "path": "legal/privacy/1.0/en.md",
-          "sha256": "f7d40c1bc88af7d9d3ead383110affd40a943b3fe13937e7fee0e4e7938b1c5a"
+          "path": "legal/privacy/1.2/en.md",
+          "sha256": "9d77590ea658fe2eeceb3cb4b35015145a4f0595ab53eab36530310369dfd3a3"
         }
       }
     }
