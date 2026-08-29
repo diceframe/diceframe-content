@@ -2,7 +2,7 @@
 
 ## 📖 官网与文档
 
-您可以在“设置 → 关于”打开 [DiceFrame 官网](https://diceframe.com)、[GitHub 项目](https://github.com/diceframe/diceframe)和使用文档。
+您可以在“管理 → 设置 → 关于”打开 [DiceFrame 官网](https://diceframe.com)、[GitHub 项目](https://github.com/diceframe/diceframe)和使用文档。
 
 ## 🛟 遇到问题时
 

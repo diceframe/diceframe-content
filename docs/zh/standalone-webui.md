@@ -47,7 +47,7 @@ npm run build:standalone
 
 后端必须明确允许独立 WebUI 的 Origin。Origin 只包含协议、域名和可选端口，不包含路径。
 
-推荐先打开后端自带的 WebUI，在 **设置 → 分享地址 → 独立前端跨域白名单** 中填写：
+推荐先打开后端自带的 WebUI，在 **管理 → 设置 → 分享地址 → 独立前端跨域白名单** 中填写：
 
 ```text
 https://diceframe.pages.dev
@@ -61,7 +61,7 @@ https://diceframe.pages.dev
 TRPG_WEB_CORS_ORIGINS=https://diceframe.pages.dev,https://play.example.com
 ```
 
-环境变量优先于 WebUI 配置；修改后需要重启 DiceFrame，设置页中的白名单会显示为只读。请填写实际前端 Origin，不要填写后端地址，不要添加路径，也不要使用 `*`。
+环境变量优先于 WebUI 配置；修改后需要重启 DiceFrame，“管理 → 设置 → 分享地址”中的白名单会显示为只读。请填写实际前端 Origin，不要填写后端地址，不要添加路径，也不要使用 `*`。
 
 ## 第一次连接
 

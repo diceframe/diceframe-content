@@ -27,7 +27,7 @@ test -f docker-compose.yml
 
 For an extracted source archive, replace `cd diceframe` with its actual directory. The final command should produce no output when the directory is correct.
 
-> Prefer adding the connection under **WebUI Settings → AI Providers**, then assigning the active models under **Model routing** (see the user guide); the `.env` approach below is for pre-seeding before first launch or automated deployments.
+> Prefer adding the connection under **Management → Settings → Model API → AI Providers**, then assigning the active models under **Management → Settings → Model Routing** (see the user guide); the `.env` approach below is for pre-seeding before first launch or automated deployments.
 
 ```bash
 cp .env.example .env
@@ -43,10 +43,10 @@ docker pull ghcr.io/diceframe/diceframe:2.3.0-beta.1
 docker pull falconku/diceframe:2.3.0-beta.1
 ```
 
-To enable semantic recall for long-term memory (vector memory), configure it directly in the **WebUI Settings → Vector memory** (toggle, endpoint, API key, model, max input; click **Test vector connection** after filling). No config files to edit. In Docker deployments, point the endpoint at `http://host.docker.internal:11434` (or the host LAN IP), because `127.0.0.1` inside the container refers to the container itself; leave the API key empty for a local Ollama setup. The equivalent `.env` configuration is:
+To enable semantic recall for long-term memory (vector memory), configure it in the Vector Memory card under **Management → Settings → Model Routing** (toggle, endpoint, API key, model, max input; click **Test vector connection** after filling). No config files to edit. In Docker deployments, point the endpoint at `http://host.docker.internal:11434` (or the host LAN IP), because `127.0.0.1` inside the container refers to the container itself; leave the API key empty for a local Ollama setup. The equivalent `.env` configuration is:
 
 ```env
-# Optional: vector memory (see "Long-term memory (vector memory) configuration" in the user guide; the WebUI settings page takes precedence)
+# Optional: vector memory (see "Long-term memory (vector memory) configuration" in the user guide; Management → Settings → Model Routing takes precedence)
 TRPG_EMBEDDING_MODEL=nomic-embed-text
 TRPG_EMBEDDING_API_KEY=
 ```
@@ -94,10 +94,10 @@ Settings only notifies Docker/NAS installations about a new version; it does not
 The Docker deployment uses the same built-in plugin host. When enabled, QQ/NapCat runs as a child process inside the main service container.
 
 1. Start the WebUI with `docker compose up -d`.
-2. Enable QQ / NapCat on the WebUI plugin page.
+2. Enable QQ / NapCat under **Management → Plugins**.
 3. If NapCat runs outside the container, use a host or NAS address reachable from the container for `NAPCAT_HOST` and `NAPCAT_PORT`.
 
-The built-in QQ plugin does not require a manually entered DiceFrame Bot API Token. DiceFrame generates and persists it. An external MaiBot bridge copies the value from Settings → Bot API.
+The built-in QQ plugin does not require a manually entered DiceFrame Bot API Token. DiceFrame generates and persists it. An external MaiBot bridge copies the value from **Management → Settings → Bot API**.
 
 Optional initial values:
 

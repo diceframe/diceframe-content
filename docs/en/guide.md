@@ -16,9 +16,9 @@ http://localhost:18000
 
 The model API powers adventure generation, check adjudication, and narration. **Configure it directly in the WebUI—no config files to edit:**
 
-1. Open **Settings → AI Providers** and add the provider name, API format (OpenAI-compatible or Anthropic), Base URL, and API key.
+1. Open **Management → Settings → Model API**, then add the provider name, API format (OpenAI-compatible or Anthropic), Base URL, and API key under AI Providers.
 2. Fetch the provider's model catalog or add supported model IDs manually.
-3. Open **Settings → Model routing** and assign a saved provider and model to the main role. Add two fallbacks or assign embedding, TTS, ASR, and image-generation roles when needed.
+3. Open **Management → Settings → Model Routing** and assign a saved provider and model to the main role. Add two fallbacks or assign embedding, TTS, ASR, and image-generation roles when needed.
 4. Save and use the relevant connection-test buttons to verify each service.
 
 Store each provider endpoint and credential once, then reuse it for the main model, fallbacks, embeddings, speech, and image generation. Upgrading users do not need to migrate immediately: older inline Base URL, model, and API key settings remain supported. Add a provider and choose its models later when you want centralized management.
@@ -27,7 +27,7 @@ Store each provider endpoint and credential once, then reuse it for the main mod
 
 DiceFrame stores confirmed plot points as long-term memory and recalls them when generating new content. By default it uses keyword matching; enabling vector memory switches to semantic recall, which helps for long campaigns or information-heavy plots. Vector memory is **not required** — the game works fine without it.
 
-Configure it directly in the WebUI — no config files to edit. Open **Settings → Vector memory**, toggle it on, fill in the fields below, click **Test vector connection**, and save once it passes:
+Configure it directly in the WebUI—no config files to edit. Open **Management → Settings → Model Routing**, find the Vector Memory card, toggle it on, fill in the fields below, click **Test vector connection**, and save once it passes:
 
 | Field | Description |
 |-------|-------------|
@@ -44,7 +44,7 @@ Run an embedding model locally with [Ollama](https://ollama.com). Nothing leaves
 ollama pull nomic-embed-text
 ```
 
-Then in Settings fill in: endpoint `http://127.0.0.1:11434`, model `nomic-embed-text`, API key empty. Ollama listens on port `11434` by default and DiceFrame uses its native endpoint; for better Chinese support you can also use `bge-m3` (`ollama pull bge-m3`, longer context). When DiceFrame runs in Docker, use `http://host.docker.internal:11434` (or the host LAN IP), because `127.0.0.1` inside the container refers to the container itself.
+Then fill in the Vector Memory card under **Management → Settings → Model Routing**: endpoint `http://127.0.0.1:11434`, model `nomic-embed-text`, API key empty. Ollama listens on port `11434` by default and DiceFrame uses its native endpoint; for better Chinese support you can also use `bge-m3` (`ollama pull bge-m3`, longer context). When DiceFrame runs in Docker, use `http://host.docker.internal:11434` (or the host LAN IP), because `127.0.0.1` inside the container refers to the container itself.
 
 **Option 2: online service (alternative)**
 
@@ -58,7 +58,7 @@ Text-to-speech and voice input are optional. See [Optional voice features](voice
 
 ## Start a Game
 
-1. Open Create.
+1. Open **Overview** and select **Create Adventure**.
 2. Choose the game language.
 3. Select a world template, generate one with AI, or enter your own setting.
 4. Choose the rules and difficulty.
@@ -131,24 +131,24 @@ In multiplayer, the player who is paying confirms the purchase. The purchase com
 
 DiceFrame can connect a Web game to QQ group chat through the built-in QQ/NapCat plugin. The adapter uses HTTP APIs and does not read saves directly.
 
-1. Open plugin settings in the WebUI.
+1. Open QQ / NapCat under **Management → Plugins**.
 2. Enter the NapCat WebSocket address, port, and token.
 3. Enable QQ / NapCat.
 4. Copy the Bot binding command from the game page.
 5. Send it to the target group.
 
-The built-in plugin receives its DiceFrame Bot API Token automatically. For an external bridge such as MaiBot, copy the DiceFrame URL and token from Settings → Bot API into that bridge. Regenerating the token invalidates the old value.
+The built-in plugin receives its DiceFrame Bot API Token automatically. For an external bridge such as MaiBot, copy the DiceFrame URL and token from **Management → Settings → Bot API** into that bridge. Regenerating the token invalidates the old value.
 
 The Bot follows the current game's language for help, status, recap, map, payment, character-creation, and error messages. The examples below use the English commands; Chinese games retain the corresponding Chinese commands.
 
 ## Using the Plugin Store
 
-Open Settings → Plugins → Plugin Store. The store is an index: authors retain their source repositories while DiceFrame pins the latest stable Release to an exact commit during installation.
+Open **Management → Plugins → Plugin Store**. The store is an index: authors retain their source repositories while DiceFrame pins the latest stable Release to an exact commit during installation.
 
 - Supported means the integration exists now. Partial means only the listed subset works. Reserved types cannot be installed from the store.
 - Source pinned means installation resolves the latest stable GitHub Release to an exact commit and checks the plugin ID, version, and permissions again. It is not a code-safety guarantee.
 
-The store prefers DiceFrame Hub for catalog metadata, review state, aggregate statistics, likes, ratings, and a sanitized README. If Hub is offline, DiceFrame uses its disk cache or the public registry mirrors, and local play remains available. Plugin packages are still downloaded directly from the author's repository; Hub does not proxy package bodies. Browsing the public catalog creates no installation identity. A local token is created only when an install event, like, or rating needs one. First start requires active acceptance of the Terms and acknowledgment of the Privacy Policy. Anonymous usage statistics are separate and off by default; heartbeats begin only after active opt-in and confirmation. The choice can be disabled or cleared in the final DiceFrame Hub and privacy section under Settings → Advanced. Heartbeats contain only the DiceFrame version, coarse operating system, and time bucket—not games, characters, plugin lists, model settings, logs, or game content.
+The store prefers DiceFrame Hub for catalog metadata, review state, aggregate statistics, likes, ratings, and a sanitized README. If Hub is offline, DiceFrame uses its disk cache or the public registry mirrors, and local play remains available. Plugin packages are still downloaded directly from the author's repository; Hub does not proxy package bodies. Browsing the public catalog creates no installation identity. A local token is created only when an install event, like, or rating needs one. First start requires active acceptance of the Terms and acknowledgment of the Privacy Policy. Anonymous usage statistics are separate and off by default; heartbeats begin only after active opt-in and confirmation. The choice can be disabled or cleared in the final DiceFrame Hub and privacy section under **Management → Settings → Advanced**. Heartbeats contain only the DiceFrame version, coarse operating system, and time bucket—not games, characters, plugin lists, model settings, logs, or game content.
 - `official`, `verified`, and `community` describe source/review level, not absolute safety. Install process plugins only from trusted authors.
 - A disabled Install button is accompanied by a reason. Bundled plugins update with DiceFrame; entries without a public repository or stable Release cannot be installed.
 - After installation, review permissions, enter the plugin's own settings, and enable it. QQ/NapCat still needs no manually entered DiceFrame Bot Token.
@@ -215,7 +215,7 @@ The Bot attempts a direct message. If that fails, it asks the player to check te
 
 ## Updating DiceFrame
 
-Check for a new version under Settings → Version Update. The apply method depends on the installation:
+Check for a new version in the Version Update section under **Management → Settings → About**. The apply method depends on the installation:
 
 - Windows portable builds can download and apply an update in the WebUI. A failed candidate returns to the old version.
 - Extracted source releases can apply an update and then ask for a manual restart.

@@ -26,7 +26,7 @@ Bot Bridge 用来把 DiceFrame 接到聊天平台。NapCat/QQ、Discord、Telegr
 
 平台消息进来后，适配器转成 `BridgeInput` 交给 `DiceFrameBridgeService`，拿到响应文本再发回平台。
 
-HTTP 客户端通过 `X-Bot-Token` 请求头鉴权。DiceFrame 托管的插件由宿主生成并注入各自独立的内部 Token；只有完全独立运行的外部桥接才从“设置 → Bot API”复制全局 Token。连接测试调用 `/api/bot/ping`，会同时验证地址和 Token，不依赖 QQ / NapCat 是否启用。
+HTTP 客户端通过 `X-Bot-Token` 请求头鉴权。DiceFrame 托管的插件由宿主生成并注入各自独立的内部 Token；只有完全独立运行的外部桥接才从“管理 → 设置 → Bot API”复制全局 Token。连接测试调用 `/api/bot/ping`，会同时验证地址和 Token，不依赖 QQ / NapCat 是否启用。
 
 ## 语言
 
@@ -79,5 +79,5 @@ NapCat 通过宿主注入的内部 Bot Token 调用扩展接口；MaiBot 插件�
 - NapCat/QQ：已用 `bridge_core` 的 client / store / 命令匹配 / presenters；富卡、私聊、轮询同步等平台能力仍保留在 QQ 适配层。
 - 共享核心和 QQ / NapCat 的主要玩家文案、帮助与命令均支持中文和英文。
 - `presenters` 的命令文案支持 `command_prefix`；QQ 按平台提及方式展示，通用服务中文默认 `跑团`、英文默认示例使用 `/df`。
-- 插件管理：Web 设置页支持安装 zip、卸载插件；插件包标准见 [plugin-development.md](plugin-development.md)。
+- 插件管理：“管理 → 插件”支持安装 `.dfplugin`、重新扫描本地目录和卸载插件；插件包标准见 [plugin-development.md](plugin-development.md)。
 - Bot Bridge 扩展：支持 `before_message`、`after_result`、`render`，并已接入 QQ / NapCat 与 MaiBot 外部桥接。

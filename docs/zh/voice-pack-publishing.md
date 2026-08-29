@@ -77,7 +77,7 @@ OpenAI 兼容预设只需 JSON；GPT-SoVITS 才需要把已授权的 WAV/试听�
 python scripts\package_plugin.py C:\path\to\my-voice-presets --overwrite
 ```
 
-生成的 `.dfplugin` 可在“设置 → 插件 → 本地安装”中选择。至少完成以下测试：
+生成的 `.dfplugin` 可在“管理 → 插件 → 本地安装”中选择。至少完成以下测试：
 
 1. 包能够安装、启用和卸载。
 2. 设置页的音色列表显示名称、语言和正确引擎。

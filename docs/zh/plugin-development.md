@@ -99,7 +99,7 @@ README_CN.md
 python scripts\package_plugin.py plugins\my-content-pack --overwrite
 ```
 
-生成的 `.dfplugin` 位于 `dist/plugins/`，可在 WebUI “设置 -> 插件 -> 安装插件”中安装测试。开发时也可以把目录放到仓库的 `plugins/<id>/`，然后点击“重新扫描本地目录”。
+生成的 `.dfplugin` 位于 `dist/plugins/`，可在 WebUI “管理 → 插件 -> 安装插件”中安装测试。开发时也可以把目录放到仓库的 `plugins/<id>/`，然后点击“重新扫描本地目录”。
 
 打包脚本会复用宿主的 manifest、schema、权限和贡献资源校验，并拒绝 `__pycache__`、日志、数据库、符号链接和不安全路径。
 
@@ -133,8 +133,8 @@ python scripts\package_plugin.py plugins\my-content-pack --overwrite
 - `config_schema`：配置 schema 文件路径，必须位于插件目录内；默认 `config.schema.json`。
 - `contributes`：声明型插件提供的资源清单。路径必须位于插件目录内，可使用 glob；启用插件后才会注册。
 - `capabilities`：声明插件提供的业务能力，例如群聊、私聊、提交行动。只声明实际提供的能力。
-- `permissions`：声明插件需要的宿主能力。宿主会校验未知权限，并在插件设置页展示。未填写时宿主会按插件类型和配置字段推导基础权限，但对外发布插件建议显式填写。
-- `docs`：插件目录内说明文档路径（如 `README_CN.md`）。该文档会在插件设置页的「说明」页签中展示（轻量 Markdown：标题、列表、加粗、行内代码）。建议用中文写清楚：插件是什么、怎么启用、怎么使用；没有该字段时前端不显示「说明」页签。
+- `permissions`：声明插件需要的宿主能力。宿主会校验未知权限，并在“管理 → 插件”中的插件详情展示。未填写时宿主会按插件类型和配置字段推导基础权限，但对外发布插件建议显式填写。
+- `docs`：插件目录内说明文档路径（如 `README_CN.md`）。该文档会在“管理 → 插件”中的插件详情的「说明」页签中展示（轻量 Markdown：标题、列表、加粗、行内代码）。建议用中文写清楚：插件是什么、怎么启用、怎么使用；没有该字段时前端不显示「说明」页签。
 
 允许的 `plugin_type`：
 
@@ -261,7 +261,7 @@ tool
 
 适用于 QQ/NapCat、MaiBot、Discord、Telegram 等聊天流接入。聊天桥接插件是进程型插件，必须提供 `entrypoint`。
 
-聊天桥接调用 DiceFrame HTTP API 时使用请求头 `X-Bot-Token`。由 DiceFrame 托管的插件会得到独立、自动生成的内部 Token，插件作者和用户都不需要填写；QQ / NapCat 因此不依赖设置页的全局 Token。只有完全运行在 DiceFrame 之外的程序，才使用管理员从“设置 → Bot API”复制的全局 Token。
+聊天桥接调用 DiceFrame HTTP API 时使用请求头 `X-Bot-Token`。由 DiceFrame 托管的插件会得到独立、自动生成的内部 Token，插件作者和用户都不需要填写；QQ / NapCat 因此不依赖设置页的全局 Token。只有完全运行在 DiceFrame 之外的程序，才使用管理员从“管理 → 设置 → Bot API”复制的全局 Token。
 
 推荐结构：
 
@@ -340,7 +340,7 @@ content/
   spells/
 ```
 
-当前宿主已支持 `rules`、`world_templates`、`character_templates`、`npcs`、`items`、`spells`、`classes`、`map_definitions`、`map_locations`、`map_icons`、`map_backgrounds` 贡献注册。启用内容包后，插件规则会出现在规则列表中，插件世界模板会出现在创建游戏的世界模板列表中；角色模板、NPC、道具、法术和职业会出现在插件设置页的“内容包”目录中，也可通过 `/api/plugins/content` 查询；地图贡献由游玩页地图直接消费。目录中的插件内容保持只读，卸载或停用插件后不再出现在列表里；用户主动导入普通内容时会复制一份到自己的角色卡库或世界书，之后不再依赖原插件文件。
+当前宿主已支持 `rules`、`world_templates`、`character_templates`、`npcs`、`items`、`spells`、`classes`、`map_definitions`、`map_locations`、`map_icons`、`map_backgrounds` 贡献注册。启用内容包后，插件规则会出现在“内容 → 规则”列表中，插件世界模板会出现在“总览 → 创建新冒险”的世界模板列表中；角色模板、NPC、道具、法术和职业会出现在插件“管理 → 插件”的“内容包”目录中，也可通过 `/api/plugins/content` 查询；地图贡献由游玩页地图直接消费。目录中的插件内容保持只读，卸载或停用插件后不再出现在列表里；用户主动导入普通内容时会复制一份到自己的角色卡库或世界书，之后不再依赖原插件文件。
 
 冒险头图资产通过 `scene_images` 注册，与 `portraits` 一样属于内容包的声明型图片贡献。
 
@@ -408,7 +408,7 @@ content/
 - `content/rules/*.json` 必须是 DiceFrame 规则模板，建议显式填写 `rule_id` 和 `rule_name`。
 - `content/worlds/*.json` 必须是 DiceFrame 世界模板，建议显式填写 `world_id`、`world_name`、`default_rule` 和 `language`。
 - 内置规则/世界模板优先于插件资源；插件不要使用与内置资源相同的 ID。
-- 角色模板可从插件设置页导入角色卡库；NPC、道具、法术、职业可导入指定世界书。
+- 角色模板可从“管理 → 插件”中的插件详情导入角色卡库；NPC、道具、法术、职业可导入指定世界书。
 - 内容目录不会自动写入用户角色卡库或世界书，必须由用户主动导入；但用户用包内世界/规则创建冒险时，模板及其默认头图会按上述契约进入新存档。
 - 内容包不得写运行时数据。
 
@@ -522,7 +522,7 @@ theme/
   theme.json
 ```
 
-当前宿主可以通过 `contributes.theme` 或 `contributes.themes` 注册主题描述文件。启用主题插件后，可在 WebUI “设置 -> 插件 -> 主题”选择主题；选择结果保存在当前浏览器。
+当前宿主可以通过 `contributes.theme` 或 `contributes.themes` 注册主题描述文件。启用主题插件后，可在 WebUI “管理 → 插件 -> 主题”选择主题；选择结果保存在当前浏览器。
 
 `theme/theme.json` 示例：
 
@@ -636,7 +636,7 @@ maps/
 
 ### 7.5 音色预设插件
 
-`voice-pack` 是无进程的声明型插件，通过现有插件商店安装。用户界面称其为“音色预设”，它不是使用本地 TTS 的必要条件。用户可以直接填写 OpenAI 兼容服务已有的 `voice_id`，或在“设置 → 我的音色”保存个人 GPT-SoVITS 参考 WAV/文本。预设只提供可选的一键配置、说明和小型试听/参考音频，不重复打包 GPT-SoVITS、Kokoro 等基础模型，也不负责安装 Python/CUDA 环境。
+`voice-pack` 是无进程的声明型插件，通过现有插件商店安装。用户界面称其为“音色预设”，它不是使用本地 TTS 的必要条件。用户可以直接填写 OpenAI 兼容服务已有的 `voice_id`，或在“管理 → 设置 → 高级参数 → 我的音色”保存个人 GPT-SoVITS 参考 WAV/文本。预设只提供可选的一键配置、说明和小型试听/参考音频，不重复打包 GPT-SoVITS、Kokoro 等基础模型，也不负责安装 Python/CUDA 环境。
 
 ```json
 {
@@ -729,7 +729,7 @@ def echo(arguments, context):
 runtime.run()
 ```
 
-宿主会校验工具名、输入 Schema、协议版本和返回对象。单次调用默认超时 30 秒，单条请求或响应上限 256 KB；标准输出只能发送协议消息，日志必须写入标准错误。用户可以在“设置 → 插件 → 工具”查看正在运行的工具并手动测试。HTTP 调用入口为 `GET /api/plugins/tools` 和 `POST /api/plugins/tools/{plugin_id}/{tool_name}`，写调用需要确认头。
+宿主会校验工具名、输入 Schema、协议版本和返回对象。单次调用默认超时 30 秒，单条请求或响应上限 256 KB；标准输出只能发送协议消息，日志必须写入标准错误。用户可以在“管理 → 插件 → 工具”查看正在运行的工具并手动测试。HTTP 调用入口为 `GET /api/plugins/tools` 和 `POST /api/plugins/tools/{plugin_id}/{tool_name}`，写调用需要确认头。
 
 要求：
 
@@ -808,7 +808,7 @@ python scripts\package_plugin.py plugins\my-plugin --overwrite
 | 未知插件权限 | `permissions` 中写了宿主不认识的值 | 使用本文列出的权限 |
 | contributes 路径越界 | `contributes` 使用绝对路径或 `..` | 只引用插件目录内文件 |
 | 插件包包含多个 plugin.json | `.dfplugin` 混入多个插件目录 | 一个文件只打一个插件 |
-| 声明型插件启用后没显示内容 | `enabled` 仍是 false，或 `contributes` glob 没匹配到文件 | 在插件设置页启用，并检查路径大小写 |
+| 声明型插件启用后没显示内容 | `enabled` 仍是 false，或 `contributes` glob 没匹配到文件 | 在“管理 → 插件”中的插件详情启用，并检查路径大小写 |
 | 进程型插件启动失败 | `entrypoint` 命令错误或依赖缺失 | 先在本地用同一命令运行，确认退出码和日志 |
 # Content V2 参考
 

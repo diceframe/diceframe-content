@@ -47,7 +47,7 @@ Deploy the complete generated `frontend-v2/dist/` directory to an HTTPS-capable 
 
 The backend must explicitly allow the standalone WebUI origin. An origin contains only the scheme, host, and optional port, with no path.
 
-The recommended interactive setup is to open the backend's built-in WebUI and enter the following under **Settings → Sharing address → Standalone Frontend CORS Allowlist**:
+The recommended interactive setup is to open the backend's built-in WebUI and enter the following under **Management → Settings → Share Address → Standalone Frontend CORS Allowlist**:
 
 ```text
 https://diceframe.pages.dev

@@ -32,7 +32,7 @@ These actions are triggered by the user and are separate from the optional heart
 
 ### Optional heartbeat
 
-The optional heartbeat is off by default. After active opt-in, DiceFrame sends approximately every six hours: application version, coarse platform (Windows, macOS, Linux, or unknown), a Hub time bucket, and a pseudonymous installation ID. It does not include game text, characters, lorebooks, plugin lists, model settings, keys, passwords, private chats, or log content. It can be disabled under Settings → Advanced → DiceFrame Hub and privacy, stopping new local heartbeats immediately.
+The optional heartbeat is off by default. After active opt-in, DiceFrame sends approximately every six hours: application version, coarse platform (Windows, macOS, Linux, or unknown), a Hub time bucket, and a pseudonymous installation ID. It does not include game text, characters, lorebooks, plugin lists, model settings, keys, passwords, private chats, or log content. It can be disabled under Management → Settings → Advanced → DiceFrame Hub and privacy, stopping new local heartbeats immediately.
 
 ### Direct connection, signaling, and STUN
 
@@ -73,3 +73,4 @@ Material changes to purposes, data types, or sharing will update the version and
 The person or organization controlling a DiceFrame device or server determines processing of local games, accounts, shared links, and server logs. For DiceFrame Hub at `api.diceframe.com`, the DiceFrame project maintainers are responsible for processing they actually operate. DiceFrame is an open-source collaboration and does not represent model providers, plugin authors, GitHub, Cloudflare, NapCat, or other platforms.
 
 Privacy or deletion requests may be raised through [GitHub Issues](https://github.com/diceframe/diceframe/issues). Do not include installation tokens, API keys, access passwords, private chats, or full saves in a public Issue; maintainers can provide a safer follow-up method when verification is needed.
+
