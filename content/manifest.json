@@ -4,11 +4,11 @@
   "announcements": {
     "zh": {
       "path": "announcements/zh.md",
-      "sha256": "b11a644667e3a4dea8fea34364456a696cbc23f267c290fa562dec598f0d7ddb"
+      "sha256": "245091474afa09593ae06c43ee55dc8fd5dced82f818f834645aa75cbdc2a2f6"
     },
     "en": {
       "path": "announcements/en.md",
-      "sha256": "7e89a7073cc4e82caefd71b49590dd96c421a089cd3eca5c762289a6e6ba938b"
+      "sha256": "19842ac5c2eb1002a8939c3728047b3f13d7eb40be6fcd249419cdbfdd9f0b1e"
     }
   },
   "documents": {
@@ -34,11 +34,11 @@
       "languages": {
         "zh": {
           "path": "legal/privacy/1.2/zh.md",
-          "sha256": "5e7039706e17b94879e549f9f8b03a6efa8ec1e2cefdf347c30d3094ee03d784"
+          "sha256": "2abf7c72212c50e335380d78fedd7f1f82ef325a0dacd9378951aa9df7d31323"
         },
         "en": {
           "path": "legal/privacy/1.2/en.md",
-          "sha256": "9d77590ea658fe2eeceb3cb4b35015145a4f0595ab53eab36530310369dfd3a3"
+          "sha256": "5163f983721737c6401abf033699b47ec96d6d07d1b26adf9c1efb017beb24ac"
         }
       }
     }

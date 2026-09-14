@@ -26,7 +26,7 @@ An adapter only:
 
 Incoming events become `BridgeInput` values passed to `DiceFrameBridgeService`; the adapter sends the returned response through the platform.
 
-The HTTP client authenticates through `X-Bot-Token`. The host generates and injects a separate internal token for each managed plugin. Only standalone external bridges copy the global token from Settings → Bot API. `/api/bot/ping` verifies both URL and token independently from whether QQ/NapCat is enabled.
+The HTTP client authenticates through `X-Bot-Token`. The host generates and injects a separate internal token for each managed plugin. Only standalone external bridges copy the global token from **Management → Settings → Bot API**. `/api/bot/ping` verifies both URL and token independently from whether QQ/NapCat is enabled.
 
 ## Language
 
@@ -79,5 +79,5 @@ Extensions control chat commands and presentation only. Character state, rolls, 
 - NapCat/QQ uses the shared client, store, command matching, and presenters. Rich cards, direct messages, and platform synchronization remain in the QQ adapter.
 - The shared core and QQ/NapCat now support Chinese and English player-facing commands, help, and primary responses.
 - Presenter command text accepts `command_prefix`; QQ displays platform mentions, while generic examples use `跑团` for Chinese and `/df` for English.
-- The Web settings page supports `.dfplugin` installation, local rescanning, and uninstall. Package standards are documented in [plugin-development.md](plugin-development.md).
+- **Management → Plugins** supports `.dfplugin` installation, local rescanning, and uninstall. Package standards are documented in [plugin-development.md](plugin-development.md).
 - Bot Bridge extensions support `before_message`, `after_result`, and `render` in QQ/NapCat and the external MaiBot bridge.

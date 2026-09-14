@@ -2,7 +2,7 @@
 
 ## 📖 Website and documentation
 
-Open Settings → About to visit the [DiceFrame website](https://diceframe.com), [GitHub project](https://github.com/diceframe/diceframe), and documentation.
+Open **Management → Settings → About** to visit the [DiceFrame website](https://diceframe.com), [GitHub project](https://github.com/diceframe/diceframe), and documentation.
 
 ## 🛟 When something goes wrong
 

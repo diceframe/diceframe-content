@@ -181,7 +181,7 @@ The restricted schema uses an object root with `properties`. Supported field typ
 
 ### 7.1 Channel Adapters
 
-Channel adapters connect QQ/NapCat, MaiBot, Discord, Telegram, or another chat stream and require an `entrypoint`. They call DiceFrame with `X-Bot-Token`. Managed plugins receive their own generated token through `TRPG_BOT_TOKEN`; an external bridge uses the global value copied from Settings → Bot API.
+Channel adapters connect QQ/NapCat, MaiBot, Discord, Telegram, or another chat stream and require an `entrypoint`. They call DiceFrame with `X-Bot-Token`. Managed plugins receive their own generated token through `TRPG_BOT_TOKEN`; an external bridge uses the global value copied from Management → Settings → Bot API.
 
 Recommended modules:
 
@@ -430,7 +430,7 @@ Map resource IDs are namespaced by content pack. The map is read-only; only the 
 
 ### 7.5 Voice Presets
 
-`voice-pack` is a declarative, process-free plugin shown as a “Voice Preset” in the store. It is never required for local TTS: users can enter an upstream OpenAI-compatible `voice_id` directly or save a personal GPT-SoVITS reference WAV/transcript under Settings → My voices. A preset only adds optional one-click metadata and small preview/reference recordings; it does not duplicate GPT-SoVITS, Kokoro, or other base models and never installs Python/CUDA environments.
+`voice-pack` is a declarative, process-free plugin shown as a “Voice Preset” in the store. It is never required for local TTS: users can enter an upstream OpenAI-compatible `voice_id` directly or save a personal GPT-SoVITS reference WAV/transcript under Management → Settings → Advanced → My voices. A preset only adds optional one-click metadata and small preview/reference recordings; it does not duplicate GPT-SoVITS, Kokoro, or other base models and never installs Python/CUDA environments.
 
 ```json
 {
@@ -493,7 +493,7 @@ def echo(arguments, context):
 runtime.run()
 ```
 
-The host validates names, input schemas, protocol versions, and object results. Calls time out after 30 seconds and each request or response is limited to 256 KB. Standard output is reserved for protocol messages; diagnostics belong on standard error. Running tools can be inspected and manually invoked under **Settings → Plugins → Tools**. HTTP consumers use `GET /api/plugins/tools` and confirmed `POST /api/plugins/tools/{plugin_id}/{tool_name}`.
+The host validates names, input schemas, protocol versions, and object results. Calls time out after 30 seconds and each request or response is limited to 256 KB. Standard output is reserved for protocol messages; diagnostics belong on standard error. Running tools can be inspected and manually invoked under **Management → Plugins → Tools**. HTTP consumers use `GET /api/plugins/tools` and confirmed `POST /api/plugins/tools/{plugin_id}/{tool_name}`.
 
 Tools must document inputs, outputs, and side effects. File writes stay inside the provided data directory or a user-selected location. The current runtime is for work that finishes within 30 seconds; long tasks must wait for a future task/progress protocol.
 

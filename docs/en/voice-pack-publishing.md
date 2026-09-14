@@ -77,7 +77,7 @@ Run this from the DiceFrame repository:
 python scripts\package_plugin.py C:\path\to\my-voice-presets --overwrite
 ```
 
-Install the resulting `.dfplugin` under Settings → Plugins → Local Install, then verify:
+Install the resulting `.dfplugin` under **Management → Plugins → Local Install**, then verify:
 
 1. Install, enable, disable, and uninstall all work.
 2. Voice names, languages, and engines appear correctly.

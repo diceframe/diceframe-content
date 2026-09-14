@@ -27,7 +27,7 @@ test -f docker-compose.yml
 
 如果使用的是下载的源码包，只需把 `cd diceframe` 换成实际解压目录。最后一条命令没有输出才表示目录正确。
 
-> 模型连接优先在 **WebUI 设置 → AI 服务商** 添加，再到 **模型配置** 分配实际使用的模型（见用户手册「AI 服务商与模型配置」）；下面 `.env` 方式用于首次启动前预置或自动化部署。
+> 模型连接优先在 **管理 → 设置 → 模型接口** 的“AI 服务商”中添加，再到 **管理 → 设置 → 模型配置** 分配实际使用的模型（见用户手册“AI 服务商与模型配置”）；下面 `.env` 方式用于首次启动前预置或自动化部署。
 
 ```bash
 cp .env.example .env
@@ -43,10 +43,10 @@ docker pull ghcr.io/diceframe/diceframe:2.3.0-beta.1
 docker pull falconku/diceframe:2.3.0-beta.1
 ```
 
-需要启用长期记忆的语义召回（向量记忆）时，直接在 **WebUI 设置 → 向量记忆** 里配置（开关、向量接口、API Key、模型、最大输入，填好后点「测试向量连接」），无需编辑配置文件。Docker 部署时向量接口填 `http://host.docker.internal:11434`（或宿主机局域网 IP），因为容器内的 `127.0.0.1` 指容器自身；本地 Ollama 方案 API Key 留空。等价地，也可以在 `.env` 中配置：
+需要启用长期记忆的语义召回（向量记忆）时，直接在 **管理 → 设置 → 模型配置** 的“向量记忆”卡片中配置（开关、向量接口、API Key、模型、最大输入，填好后点“测试向量连接”），无需编辑配置文件。Docker 部署时向量接口填 `http://host.docker.internal:11434`（或宿主机局域网 IP），因为容器内的 `127.0.0.1` 指容器自身；本地 Ollama 方案 API Key 留空。等价地，也可以在 `.env` 中配置：
 
 ```env
-# 可选：向量记忆（详见用户手册「长期记忆（向量记忆）配置」；WebUI 设置页优先）
+# 可选：向量记忆（详见用户手册“长期记忆（向量记忆）配置”；“管理 → 设置 → 模型配置”优先）
 TRPG_EMBEDDING_MODEL=nomic-embed-text
 TRPG_EMBEDDING_API_KEY=
 ```
@@ -85,7 +85,7 @@ docker compose up -d --build
 docker compose build --no-cache
 ```
 
-设置页只负责提示 Docker/NAS 有新版本，不会在容器内部替换程序文件。NAS 用户可以直接在设备自带的容器管理界面检查并拉取新镜像。
+“管理 → 设置 → 关于”的版本更新区只负责提示 Docker/NAS 有新版本，不会在容器内部替换程序文件。NAS 用户可以直接在设备自带的容器管理界面检查并拉取新镜像。
 
 ## 数据与密钥
 
@@ -102,10 +102,10 @@ Docker 版主服务仍然使用内置插件宿主。启用 QQ 插件时，Bot �
 推荐流程：
 
 1. 先启动 WebUI：`docker compose up -d`
-2. 在 WebUI 插件页启用 `QQ / NapCat`
+2. 在“管理 → 插件”启用 `QQ / NapCat`
 3. 如果 NapCat 不在容器内，填写宿主机或 NAS 上可从容器访问的 `NAPCAT_HOST` / `NAPCAT_PORT`
 
-内置 QQ 插件不需要填写 DiceFrame Bot API Token，服务会自动生成并持久化。外部 MaiBot Bridge 可在 WebUI 的“设置 → Bot API”复制 Token。
+内置 QQ 插件不需要填写 DiceFrame Bot API Token，服务会自动生成并持久化。外部 MaiBot Bridge 可在 WebUI 的“管理 → 设置 → Bot API”复制 Token。
 
 也可以在首次启动前写入 `.env`：
 
