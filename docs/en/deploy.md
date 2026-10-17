@@ -27,11 +27,11 @@ test -f docker-compose.yml
 
 For an extracted source archive, replace `cd diceframe` with its actual directory. The final command should produce no output when the directory is correct.
 
-> Prefer adding the connection under **Management → Settings → Model API → AI Providers**, then assigning the active models under **Management → Settings → Model Routing** (see the user guide); the `.env` approach below is for pre-seeding before first launch or automated deployments.
+> After starting DiceFrame, add providers under **Manage → Settings → Model API → AI Providers**, then assign models under **Manage → Settings → Model Routing**. `.env` configures deployment options such as ports; old AI endpoint/key/model environment variables are no longer activated or automatically converted. See [the user guide](guide.md) for provider setup.
 
 ```bash
 cp .env.example .env
-# Edit .env and set TRPG_LLM_API_KEY. Override base URL/model only when needed.
+# Edit .env only for deployment options such as the host port.
 docker compose pull
 docker compose up -d
 ```
@@ -43,13 +43,7 @@ docker pull ghcr.io/diceframe/diceframe:2.3.0-beta.1
 docker pull falconku/diceframe:2.3.0-beta.1
 ```
 
-To enable semantic recall for long-term memory (vector memory), configure it in the Vector Memory card under **Management → Settings → Model Routing** (toggle, endpoint, API key, model, max input; click **Test vector connection** after filling). No config files to edit. In Docker deployments, point the endpoint at `http://host.docker.internal:11434` (or the host LAN IP), because `127.0.0.1` inside the container refers to the container itself; leave the API key empty for a local Ollama setup. The equivalent `.env` configuration is:
-
-```env
-# Optional: vector memory (see "Long-term memory (vector memory) configuration" in the user guide; Management → Settings → Model Routing takes precedence)
-TRPG_EMBEDDING_MODEL=nomic-embed-text
-TRPG_EMBEDDING_API_KEY=
-```
+For optional vector memory, first save the embedding provider's address, key and model catalog under **Manage → Settings → Model API**. Then enable Vector Memory under **Model Routing**, select that provider/model, set the maximum input if needed and test the connection. In Docker, an Ollama provider can use `http://host.docker.internal:11434` or another reachable host address; `127.0.0.1` inside the container refers to the container itself. Local providers may leave the key empty. Configure AI roles in the WebUI rather than through old embedding environment variables.
 
 Open `http://localhost:9876`. To change the host port:
 
@@ -94,10 +88,10 @@ Settings only notifies Docker/NAS installations about a new version; it does not
 The Docker deployment uses the same built-in plugin host. When enabled, QQ/NapCat runs as a child process inside the main service container.
 
 1. Start the WebUI with `docker compose up -d`.
-2. Enable QQ / NapCat under **Management → Plugins**.
+2. Enable QQ / NapCat under **Manage → Plugins**.
 3. If NapCat runs outside the container, use a host or NAS address reachable from the container for `NAPCAT_HOST` and `NAPCAT_PORT`.
 
-The built-in QQ plugin does not require a manually entered DiceFrame Bot API Token. DiceFrame generates and persists it. An external MaiBot bridge copies the value from **Management → Settings → Bot API**.
+The built-in QQ plugin does not require a manually entered DiceFrame Bot API Token. DiceFrame generates and persists it. An external MaiBot bridge copies the value from **Manage → Settings → Bot API**.
 
 Optional initial values:
 
