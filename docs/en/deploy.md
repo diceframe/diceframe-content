@@ -73,7 +73,7 @@ docker compose up -d --build
 docker compose build --no-cache
 ```
 
-Settings only notifies Docker/NAS installations about a new version; it does not replace files inside the container. NAS users can check and pull the new image in the device's container manager.
+Managed-update-capable Docker/NAS installations with a compatible Python/system runtime can apply ordinary application updates from **Manage → Settings → About**; failed candidate validation restores the previous program and its readable data. Legacy baseline images or base-runtime changes require pulling an image and recreating the container with its original `data/` mount, ports, and environment. Back up the complete `data/` directory, including `data/_updater`, before upgrading. See [Application Updates](https://github.com/diceframe/diceframe/blob/main/docs/en/updates.md) for installation-specific steps, retained datasets, and rollback behavior.
 
 ## Data and Secrets
 

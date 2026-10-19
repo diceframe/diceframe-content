@@ -36,7 +36,7 @@ When DiceFrame itself runs in Docker, `127.0.0.1` refers to the DiceFrame contai
 
 ### Use GPT-SoVITS
 
-Start the GPT-SoVITS HTTP API using its own instructions. Save its reachable address and credential, if required, under **Manage → Settings → Model API**. Then select GPT-SoVITS and that saved provider under **Manage → Settings → Model Routing**. Manage personal voices under **Manage → Settings → General → My voices**; each needs a reference WAV, an exact transcript, and the prompt language:
+Start the GPT-SoVITS HTTP API using its own instructions. Save its reachable address and credential, if required, under **Manage → Settings → Model API**. Then select GPT-SoVITS and that saved provider under **Manage → Settings → Model Routing**. Manage personal voices under **Manage → Settings → Model Routing → My voices**; each needs a reference WAV, an exact transcript, and the prompt language:
 
 - Upload the WAV when DiceFrame and the TTS service can read the same local file.
 - For another computer or container, use Server-visible path. The path must be readable from the TTS service itself.

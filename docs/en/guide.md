@@ -11,7 +11,7 @@ Whether you are a GM preparing a new adventure or a player joining the table, th
 | Overview | Create an adventure or resume a save. |
 | Play | Describe actions, view the party, open game tools and the GM workspace. |
 | Characters | Reuse a card from the character card library or manage this game's characters. |
-| Content | Open Content library, World notes, Content packs or Rules. The library toolbar opens the world gallery, adventure workbench, script import and source management. |
+| Content | Open Content library, Lorebook, Content packages or Rules. The library toolbar opens the world gallery, adventure workbench, script import and source management. |
 | Manage | Memory, Logs, Plugins and Settings. |
 
 In **Manage → Settings**, search sits at the top of the sidebar and opens the matching field. On phones, the category list can fold beneath it.
@@ -90,9 +90,9 @@ DiceFrame sends the action to the GM model, parses narrative state tags, and rec
 
 ## Content library and adventures
 
-Use **Content → Content library** to find worlds, lorebooks and adventures. A world supplies the setting, default rules and associated books; lorebooks provide detailed NPC, place and background references. Each lorebook card shows its own title and separately identifies bound worlds. Search and the content-language filter narrow the cards; **World notes** follows the selected world/game scope.
+Use **Content → Content library** to find worlds, lorebooks and adventures. A world supplies the setting, default rules and associated books; lorebooks provide detailed NPC, place and background references. Each lorebook card shows its own title and separately identifies bound worlds. Search and the content-language filter narrow the cards; **Lorebook** follows the selected world/game scope.
 
-For ready-made content, open **Content → Content packs**, preview the installation, resolve blocking messages and confirm. Check the completion or error status, then choose an installed adventure to start a game. A pack can contain adventures and reusable resources; it is not limited to D&D. The selected adventure and installed rules runtime must be compatible, and prose imports do not add executable rules.
+For ready-made content, open **Content → Content packages**, preview the installation, resolve blocking messages and confirm. Check the completion or error status, then choose an installed adventure to start a game. A pack can contain adventures and reusable resources; it is not limited to D&D. The selected adventure and installed rules runtime must be compatible, and prose imports do not add executable rules.
 
 To bring your own material, open **Import script** from the library toolbar:
 

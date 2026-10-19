@@ -430,7 +430,7 @@ Map resource IDs are namespaced by content pack. The map is read-only; only the 
 
 ### 7.5 Voice Presets
 
-`voice-pack` is a declarative, process-free plugin shown as a “Voice Preset” in the store. It is never required for local TTS: users can enter an upstream OpenAI-compatible `voice_id` directly or save a personal GPT-SoVITS reference WAV/transcript under Manage → Settings → General → My voices. A preset only adds optional one-click metadata and small preview/reference recordings; it does not duplicate GPT-SoVITS, Kokoro, or other base models and never installs Python/CUDA environments.
+`voice-pack` is a declarative, process-free plugin shown as a “Voice Preset” in the store. It is never required for local TTS: users can enter an upstream OpenAI-compatible `voice_id` directly or save a personal GPT-SoVITS reference WAV/transcript under Manage → Settings → Model Routing → My voices. A preset only adds optional one-click metadata and small preview/reference recordings; it does not duplicate GPT-SoVITS, Kokoro, or other base models and never installs Python/CUDA environments.
 
 ```json
 {

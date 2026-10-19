@@ -79,7 +79,7 @@ docker compose up -d --build
 docker compose build --no-cache
 ```
 
-“管理 → 设置 → 关于”的版本更新区只负责提示 Docker/NAS 有新版本，不会在容器内部替换程序文件。NAS 用户可以直接在设备自带的容器管理界面检查并拉取新镜像。
+支持托管更新且 Python/系统运行时兼容的 Docker/NAS，可以在“管理 → 设置 → 关于”的版本更新区应用普通程序更新；候选版本验证失败时会恢复旧程序和可读数据。旧基线镜像或基础运行时变化，需要拉取镜像，并按原来的 `data/` 挂载、端口和环境变量重新创建容器。升级前请备份完整 `data/`，包括 `data/_updater`。各安装方式、数据保留和回滚行为见[应用更新说明](https://github.com/diceframe/diceframe/blob/main/docs/zh/updates.md)。
 
 ## 数据与密钥
 
