@@ -27,11 +27,11 @@ test -f docker-compose.yml
 
 如果使用的是下载的源码包，只需把 `cd diceframe` 换成实际解压目录。最后一条命令没有输出才表示目录正确。
 
-> 模型连接优先在 **管理 → 设置 → 模型接口** 的“AI 服务商”中添加，再到 **管理 → 设置 → 模型配置** 分配实际使用的模型（见用户手册“AI 服务商与模型配置”）；下面 `.env` 方式用于首次启动前预置或自动化部署。
+> 启动后，在**管理 → 设置 → 模型接口**的“AI 服务商”中保存连接，再到**管理 → 设置 → 模型配置**分配模型。`.env` 只用于端口等部署选项；旧 AI 地址、密钥、模型环境变量不再生效，也不会自动转换。服务商设置见[用户手册](guide.md)。
 
 ```bash
 cp .env.example .env
-# 编辑 .env，填 TRPG_LLM_API_KEY；如需自定义模型，再填 base_url/model
+# 按需编辑 .env 中的宿主机端口等部署选项。
 docker compose pull
 docker compose up -d
 ```
@@ -43,13 +43,7 @@ docker pull ghcr.io/diceframe/diceframe:2.3.0-beta.1
 docker pull falconku/diceframe:2.3.0-beta.1
 ```
 
-需要启用长期记忆的语义召回（向量记忆）时，直接在 **管理 → 设置 → 模型配置** 的“向量记忆”卡片中配置（开关、向量接口、API Key、模型、最大输入，填好后点“测试向量连接”），无需编辑配置文件。Docker 部署时向量接口填 `http://host.docker.internal:11434`（或宿主机局域网 IP），因为容器内的 `127.0.0.1` 指容器自身；本地 Ollama 方案 API Key 留空。等价地，也可以在 `.env` 中配置：
-
-```env
-# 可选：向量记忆（详见用户手册“长期记忆（向量记忆）配置”；“管理 → 设置 → 模型配置”优先）
-TRPG_EMBEDDING_MODEL=nomic-embed-text
-TRPG_EMBEDDING_API_KEY=
-```
+需要向量记忆时，先在**管理 → 设置 → 模型接口**保存 Embedding 服务商的地址、密钥和模型目录，再到**模型配置**启用向量记忆、选择该服务商/模型，按需设置最大输入并测试连接。Docker 内的 Ollama 服务商地址可使用 `http://host.docker.internal:11434` 或其他可达的宿主机地址；容器内的 `127.0.0.1` 指容器自身。本地服务商密钥可留空，AI 能力通过 WebUI 配置，不再使用旧向量环境变量。
 
 启动后打开：
 
@@ -85,7 +79,7 @@ docker compose up -d --build
 docker compose build --no-cache
 ```
 
-“管理 → 设置 → 关于”的版本更新区只负责提示 Docker/NAS 有新版本，不会在容器内部替换程序文件。NAS 用户可以直接在设备自带的容器管理界面检查并拉取新镜像。
+支持托管更新且 Python/系统运行时兼容的 Docker/NAS，可以在“管理 → 设置 → 关于”的版本更新区应用普通程序更新；候选版本验证失败时会恢复旧程序和可读数据。旧基线镜像或基础运行时变化，需要拉取镜像，并按原来的 `data/` 挂载、端口和环境变量重新创建容器。升级前请备份完整 `data/`，包括 `data/_updater`。各安装方式、数据保留和回滚行为见[应用更新说明](https://github.com/diceframe/diceframe/blob/main/docs/zh/updates.md)。
 
 ## 数据与密钥
 
