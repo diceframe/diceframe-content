@@ -43,7 +43,7 @@ docker pull ghcr.io/diceframe/diceframe:2.3.0-beta.1
 docker pull falconku/diceframe:2.3.0-beta.1
 ```
 
-For optional vector memory, first save the embedding provider's address, key and model catalog under **Manage → Settings → Model API**. Then enable Vector Memory under **Model Routing**, select that provider/model, set the maximum input if needed and test the connection. In Docker, an Ollama provider can use `http://host.docker.internal:11434` or another reachable host address; `127.0.0.1` inside the container refers to the container itself. Local providers may leave the key empty. Configure AI roles in the WebUI rather than through old embedding environment variables.
+For optional vector memory, 3.3.0+ prefers the **built-in local model**: download and enable it directly under **Manage → Settings → Models**; it runs inside the container and needs no external service (Ollama is no longer required). To keep using an external embedding provider, first save its address, key and model catalog under **Manage → Settings → Model API**. Then enable Vector Memory under **Model Routing**, select that provider/model, set the maximum input if needed and test the connection. In Docker, an Ollama provider can use `http://host.docker.internal:11434` or another reachable host address; `127.0.0.1` inside the container refers to the container itself. Local providers may leave the key empty. Configure AI roles in the WebUI rather than through old embedding environment variables.
 
 Open `http://localhost:9876`. To change the host port:
 

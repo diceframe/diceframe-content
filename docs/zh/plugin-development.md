@@ -147,6 +147,7 @@ voice-pack
 import-export
 provider
 tool
+ruleset-runtime
 ```
 
 允许的 `permissions`：
@@ -156,6 +157,7 @@ tool
 | `process.spawn` | 启动独立插件进程 |
 | `network.client` | 插件进程访问外部网络 |
 | `diceframe.http` | 调用 DiceFrame HTTP API |
+| `ruleset.execute` | 以外部规则运行时进程参与建卡与权威结算（`ruleset-runtime` 插件） |
 | `plugin.config` | 读取插件普通配置 |
 | `plugin.secrets` | 读取插件敏感配置 |
 | `plugin.data` | 读写插件专属数据目录 |
@@ -687,6 +689,7 @@ OpenAI 兼容服务的音色预设不需要参考音频，改为声明 `"engine"
 - `import-export` 还没有统一导入导出任务 API。
 - `provider` 还没有统一 Provider 注册和选择 UI。
 - `tool` 已支持短任务调用，但还没有长任务进度、取消和结果文件下载接口，也尚未自动接入 AI 工具选择。
+- `ruleset-runtime` 已提供外部规则运行时全链路接缝，但角色卡回写与只读冒险图投影仍在跟进；规则包也还不能携带自己的界面组件（声明式面板除外）。
 
 ### 7.7 导入导出插件
 
@@ -737,6 +740,57 @@ runtime.run()
 - 涉及文件写入时必须限制在插件数据目录或用户明确选择的位置。
 - 当前运行时只适合 30 秒内可完成的小型任务；长任务应等待后续任务/进度协议。
 - 不得向标准输出写普通日志，否则握手或调用会失败关闭。
+
+### 7.10 ruleset-runtime 插件（外部规则运行时，实验性）
+
+适用于完整的第三方规则系统：非 d20/d100 骰制、专属战斗 / 资源 / 成长流程。规则逻辑住在插件自己的子进程里，宿主保留存档、权限、事务与对局投影的所有权——这是与「把规则写进主程序」或「内容包」的本质区别。
+
+最小 `plugin.json`：
+
+```json
+{
+  "id": "example-ruleset",
+  "name": "Example Ruleset Runtime",
+  "version": "1.0.0",
+  "plugin_type": "ruleset-runtime",
+  "permissions": ["ruleset.execute"],
+  "entrypoint": ["{python}", "runtime.py"],
+  "ruleset_runtime": {
+    "runtime_id": "example:ruleset",
+    "runtime_version": 1,
+    "timeout_seconds": 5,
+    "capabilities": {
+      "authoritative_intents": true,
+      "versioned_state": true,
+      "automatic_intents": true,
+      "narrative_checks": true,
+      "sequential_checks": true,
+      "composite_action": true
+    }
+  }
+}
+```
+
+- `runtime_id` 必须全局唯一（≤160 字符），`runtime_version` 为正整数；规则模板通过 `runtime.id` 与 `runtime.minimum_version` 绑定到这个运行时。
+- `capabilities` 是字符串键对象，键必须与平台 `RulesetCapabilities` 字段一致——未知键会让安装直接失败（fail closed），不会静默忽略。
+- `timeout_seconds` 默认 5 秒、上限 30 秒，指单次 RPC 的往返预算。
+
+协议要点（RuntimeProbe stdio）：
+
+- 每行一个 JSON 对象，UTF-8 强制（宿主为子进程固定 `PYTHONUTF8=1` / `PYTHONIOENCODING=utf-8`）；单条请求或响应上限 256 KB。
+- 请求必须原样回显 `request_id`；标准输出只能发协议消息，诊断信息写标准错误（宿主有界地转发进日志）。
+- 子进程环境变量按宿主白名单下发；入口命令相对路径按插件目录解析，支持 `{python}`、`{plugin_dir}` 占位。
+- 崩溃或超时后由宿主按能力声明重新拉起；生命周期与启停状态由扩展中心呈现。
+
+能力与调用约定：
+
+- **声明即义务**：`sequential_checks` / `composite_action` 宣称后注册期会做协议探活，探不通会被剥除能力位；`automatic_intents` / `narrative_checks` 未声明时宿主不会发送对应 RPC。
+- 核心操作：`describe`（握手）、`game_binding`（建局绑定版本化存档）、`prepare_intent_submission` / `resolve_intent` / `apply_event_batch`（权威意图链）、`next_automatic_intent`（敌方与 AI 席自动行动）、`resolve_narrative_checks`（自由叙事检定）、`validate_sequential_plan` / `resolve_sequential_step`（顺序 / 组合动作）、`gameplay_view` / `available_intents`（按视角投影）。
+- `rule` 参数永远是宿主解析合并后的规则模板 JSON，不是宿主内部对象。
+- **重放契约**：同一批次重试命中宿主持久收据时返回 `{"applied": false, "replayed": true}`，不重发 RPC、不重复投影；收据身份按游戏 / Run 隔离。
+- **状态桥**：`apply_event_batch` 可交回 `state` 与 `event_ledger`；账本只允许追加，历史行必须与宿主持久账本逐字段一致，改写即拒绝。
+
+仍在跟进（截至本文档更新）：角色卡回写桥与只读冒险图投影尚未开放；首个完整样例（Fabula Ultima 插件包）在准备中。协议与能力位的权威描述见主仓库 `docs/ARCHITECTURE_CN.md` 的外部规则运行时章节。
 
 ## 8. 商店收录
 

@@ -98,7 +98,7 @@ The output is placed in `dist/plugins/`. The packager applies host validation an
 - `permissions` requests known host capabilities and is shown in settings.
 - `docs` points to documentation inside the package (e.g. `README_CN.md`). It is rendered in the plugin settings "Guide" tab using lightweight Markdown (headings, lists, bold, inline code). Write it in the language of your users and explain what the plugin does, how to enable it, and how to use it. The tab is hidden when this field is absent.
 
-Known types are `channel-adapter`, `bot-extension`, `content-pack`, `theme`, `voice-pack`, `import-export`, `provider`, and `tool`.
+Known types are `channel-adapter`, `bot-extension`, `content-pack`, `theme`, `voice-pack`, `import-export`, `provider`, `tool`, and `ruleset-runtime`.
 
 | Permission | Meaning |
 |------------|---------|
@@ -463,6 +463,7 @@ For the complete workflow from open-source voice selection and licensing records
 - `import-export` has no unified task API.
 - `provider` has no registration or selection runtime.
 - `tool` supports short calls but not long-task progress, cancellation, result-file downloads, or automatic AI tool selection.
+- `ruleset-runtime` provides the full external ruleset runtime seams, but character-sheet writeback and the read-only adventure projection are still in progress; ruleset packages cannot ship UI components yet (declarative panels excepted).
 
 ### 7.7 Import/Export Plugins
 
@@ -496,6 +497,57 @@ runtime.run()
 The host validates names, input schemas, protocol versions, and object results. Calls time out after 30 seconds and each request or response is limited to 256 KB. Standard output is reserved for protocol messages; diagnostics belong on standard error. Running tools can be inspected and manually invoked under **Manage → Plugins → Tools**. HTTP consumers use `GET /api/plugins/tools` and confirmed `POST /api/plugins/tools/{plugin_id}/{tool_name}`.
 
 Tools must document inputs, outputs, and side effects. File writes stay inside the provided data directory or a user-selected location. The current runtime is for work that finishes within 30 seconds; long tasks must wait for a future task/progress protocol.
+
+### 7.10 ruleset-runtime Plugins (External Ruleset Runtimes, Experimental)
+
+For complete third-party rule systems: non-d20/d100 dice, bespoke combat, resources and progression. The rules live in the plugin's own child process while the host keeps ownership of saves, permissions, transactions and gameplay projections — that is the essential difference from writing rules into the core or shipping a content pack.
+
+Minimal `plugin.json`:
+
+```json
+{
+  "id": "example-ruleset",
+  "name": "Example Ruleset Runtime",
+  "version": "1.0.0",
+  "plugin_type": "ruleset-runtime",
+  "permissions": ["ruleset.execute"],
+  "entrypoint": ["{python}", "runtime.py"],
+  "ruleset_runtime": {
+    "runtime_id": "example:ruleset",
+    "runtime_version": 1,
+    "timeout_seconds": 5,
+    "capabilities": {
+      "authoritative_intents": true,
+      "versioned_state": true,
+      "automatic_intents": true,
+      "narrative_checks": true,
+      "sequential_checks": true,
+      "composite_action": true
+    }
+  }
+}
+```
+
+- `runtime_id` must be globally unique (≤160 chars); `runtime_version` is a positive integer. Rule templates bind to the runtime via `runtime.id` and `runtime.minimum_version`.
+- `capabilities` is a string-keyed object whose keys must match the platform's `RulesetCapabilities` fields — unknown keys fail the install outright (fail closed), they are never silently ignored.
+- `timeout_seconds` defaults to 5 and caps at 30; it is the per-RPC round-trip budget.
+
+Protocol essentials (RuntimeProbe over stdio):
+
+- One JSON object per line, UTF-8 enforced (the host pins `PYTHONUTF8=1` / `PYTHONIOENCODING=utf-8` for the child); requests and responses are capped at 256 KB each.
+- Every request must echo `request_id` back. Standard output carries protocol messages only; diagnostics go to standard error (forwarded into the host log, bounded).
+- The child environment is a host whitelist; relative entrypoint paths resolve against the plugin directory and support the `{python}` / `{plugin_dir}` placeholders.
+- Crashes and timeouts are followed by a capability-checked relaunch; lifecycle and on/off state surface in the extension center.
+
+Capabilities and call conventions:
+
+- **Declaring is committing**: `sequential_checks` / `composite_action` are probed at registration and stripped if the protocol is missing; `automatic_intents` / `narrative_checks` RPCs are simply never sent when undeclared.
+- Core operations: `describe` (handshake), `game_binding` (bind versioned save state at game creation), `prepare_intent_submission` / `resolve_intent` / `apply_event_batch` (the authoritative intent chain), `next_automatic_intent` (enemy and AI-seat turns), `resolve_narrative_checks` (free-text checks), `validate_sequential_plan` / `resolve_sequential_step` (sequential / composite actions), `gameplay_view` / `available_intents` (per-viewer projection).
+- The `rule` argument is always the host-resolved merged rule template as JSON, never a host object.
+- **Replay contract**: a retried batch that hits the host's durable receipt returns `{"applied": false, "replayed": true}` without re-sending the RPC or re-projecting; receipt identity is scoped per game / run.
+- **State bridge**: `apply_event_batch` may hand back `state` and `event_ledger`. The ledger is append-only; historical rows must match the host's persisted ledger field by field or the whole result is rejected.
+
+Still in progress as of this update: character-sheet writeback and the read-only adventure projection are not open yet; the first complete sample (the Fabula Ultima package) is being prepared. The authoritative protocol and capability description lives in the external ruleset runtime chapter of `docs/ARCHITECTURE_EN.md` in the main repository.
 
 ## 8. Store Listing
 
