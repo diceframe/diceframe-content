@@ -109,6 +109,8 @@ Interface language changes WebUI text. Game language is stored in the save and c
 
 World templates, lorebooks, and content packs have their own `language`. Create prioritizes matching content but still shows other languages. Selecting Chinese content in an English UI does not translate the content, and vice versa.
 
+Starting with 3.3.0, backend messages returned to clients (errors, action results) are localized to the request language as well: the WebUI and mobile clients follow the interface language; bots, scripts and third-party callers without a language header still receive Simplified Chinese, exactly as before. This is the first batch (`src/webui` scope); messages from other modules remain Chinese for now.
+
 Content V2 rules use one canonical core `<rule_id>.json` with typed overlays at
 `locales/<locale>/<rule_id>.json`. Overlays may change display fields but never mechanics. Legacy
 `<rule_id>_en.json`/`<rule_id>_ja.json` files are V1 compatibility inputs only and must not be used
@@ -192,6 +194,9 @@ The Bot follows the current game's language for help, status, recap, map, paymen
 
 Open **Manage → Plugins → Plugin Store**. The store is an index: authors retain their source repositories while DiceFrame pins the latest stable Release to an exact commit during installation.
 
+- Since 3.3.0 plugins and content live in the unified **extension center**: the module library supports search, categories and a featured shelf; multiple packages can be installed as one atomic group — a mid-flight failure or power loss rolls the whole group back, and every install leaves an auditable receipt used for crash recovery.
+- Adventure packs that need an extra rules runtime are labeled "requires runtime X ≥N" on their detail page; import previews and install prompts explain what is missing until the runtime is installed.
+
 - Supported means the integration exists now. Partial means only the listed subset works. Reserved types cannot be installed from the store.
 - Source pinned means installation resolves the latest stable GitHub Release to an exact commit and checks the plugin ID, version, and permissions again. It is not a code-safety guarantee.
 
@@ -202,6 +207,18 @@ The store prefers DiceFrame Hub for catalog metadata, review state, aggregate st
 - The store checks for plugin updates and notifies users; installing or updating requires manual confirmation. Process plugins only notify and require confirmation; permission or runtime expansion also requires confirmation.
 - Privately shared plugins should use a `.dfplugin` file produced by the packaging script. Select it under Local Install. After manually copying a plugin directory, use Rescan Local Plugins.
 - Chat presentation extensions may add commands or replace status, map, and other replies with custom text, images, or cards. If an extension fails, DiceFrame keeps using its built-in presentation; the extension cannot rewrite authoritative character state, rolls, or payment results.
+
+## Creator Studio (Experimental)
+
+**Manage → Creator** opens the creator studio: organize templates, world books and rules as projects with revisions, validation, preview, build and submission receipts. The floating AI assistant edits projects with you in a streaming conversation; confirm items one by one or turn on auto-approve. Builds are validated before submission and every submission leaves a receipt for traceability.
+
+## Local Embedding Models (Optional)
+
+Semantic recall for long-term memory needs an embedding model. Besides remote OpenAI-compatible endpoints, 3.3.0 lets you install models from the built-in catalog under **Manage → Settings → Models** (about 24 MB, downloaded from Hugging Face or its mirror, optionally via the system proxy). Local models run inference on your machine; text never leaves it.
+
+- Vectors from different models never mix: switching models rebuilds the index in the background, and semantic recall temporarily falls back to keyword recall.
+- A corrupted or deleted model no longer breaks startup: the embedding capability pauses with a clear notice and recovers once fixed or reinstalled.
+- Installing and rebuilding models are owner actions that require owner confirmation.
 
 ## Common Chat Commands
 
