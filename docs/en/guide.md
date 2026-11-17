@@ -56,15 +56,15 @@ Configure it in two places: first save the embedding service's address, key and 
 | Model | Embedding model name |
 | Max input | `0` for automatic detection, or set per model |
 
-**Option 1: local deployment (recommended, also the default model)**
+**Option 1 (built-in local model, 3.3.0+, easiest):** no Ollama or any external inference program needed any more. In the Vector Memory card under **Manage → Settings → Models**, pick the local model option and download it from the built-in catalog in one click (about 24 MB, from Hugging Face or its mirror, optionally via the system proxy); it enables itself when the download finishes. Inference runs inside the DiceFrame process, nothing leaves your machine, and no provider key or extra service is required.
 
-Run an embedding model locally with [Ollama](https://ollama.com). Nothing leaves your machine and no service key is needed:
+**Option 1 (older versions / advanced): Ollama and other external local services.** On versions before 3.3.0, or to use models outside the catalog (e.g. `bge-m3`), you can keep using [Ollama](https://ollama.com):
 
 ```powershell
 ollama pull nomic-embed-text
 ```
 
-Create a provider under **Manage → Settings → Model API** with Base URL `http://127.0.0.1:11434`, an empty API key and model `nomic-embed-text`; select it in Vector Memory under **Model Routing**. Ollama listens on port `11434` by default and DiceFrame uses its native endpoint. You can also install `bge-m3` with `ollama pull bge-m3` and add it to the provider's model catalog. When DiceFrame runs in Docker, use `http://host.docker.internal:11434` (or a reachable host address), because `127.0.0.1` inside the container refers to the container itself.
+Add a provider under **Manage → Settings → Model API** with Base URL `http://127.0.0.1:11434`, an empty API key and model `nomic-embed-text`; select it in Vector Memory under **Model Routing**. Ollama listens on port `11434` by default and DiceFrame uses its native endpoint. You can also install `bge-m3` with `ollama pull bge-m3` and add it to the provider's model catalog. When DiceFrame runs in Docker, use `http://host.docker.internal:11434` (or a reachable host address), because `127.0.0.1` inside the container refers to the container itself; the built-in local model instead runs inside the container and needs no external address.
 
 **Option 2: online service (alternative)**
 
@@ -214,7 +214,7 @@ The store prefers DiceFrame Hub for catalog metadata, review state, aggregate st
 
 ## Local Embedding Models (Optional)
 
-Semantic recall for long-term memory needs an embedding model. Besides remote OpenAI-compatible endpoints, 3.3.0 lets you install models from the built-in catalog under **Manage → Settings → Models** (about 24 MB, downloaded from Hugging Face or its mirror, optionally via the system proxy). Local models run inference on your machine; text never leaves it.
+Semantic recall for long-term memory needs an embedding model. Besides remote OpenAI-compatible endpoints, 3.3.0 lets you install models from the built-in catalog under **Manage → Settings → Models** (about 24 MB, downloaded from Hugging Face or its mirror, optionally via the system proxy). Local models run inference on your machine; text never leaves it. With this you no longer need Ollama or other external inference programs — that was the local setup for older versions and remains an advanced option.
 
 - Vectors from different models never mix: switching models rebuilds the index in the background, and semantic recall temporarily falls back to keyword recall.
 - A corrupted or deleted model no longer breaks startup: the embedding capability pauses with a clear notice and recovers once fixed or reinstalled.
